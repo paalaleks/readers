@@ -1,10 +1,9 @@
-import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { ButtonSubmit } from "../../components/ButtonSubmit";
+import { ButtonSubmit } from "@/components/ButtonSubmit";
 import NavBack from "@/components/NavBack";
 
-export default function Login({
+export default function FormLogin({
   searchParams,
 }: {
   searchParams: { message: string };
@@ -16,46 +15,34 @@ export default function Login({
     const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
-    console.log(data);
+    const { data, error: sessionError } = await supabase.auth.getSession();
 
-    return redirect("/my-library");
-  };
-
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
+    const isAdmin = data.session?.user.app_metadata.claims_admin;
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      return redirect("/admin-area/login?message=Could not authenticate user");
     }
-    return redirect("/my-library/pair-labels?message=new-user-created");
+    if (sessionError) {
+      return redirect("/admin-area/login?message=Could not authenticate user");
+    }
+    if (isAdmin) {
+      return redirect(`/admin-area/${email}`);
+    } else if (!isAdmin) {
+      return redirect(
+        "/admin-area/login?message=You are not an admin. Please sign in with an admin account.",
+      );
+    }
   };
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <NavBack />
-
-      <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground max-w-sm mx-auto">
+      <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -82,13 +69,7 @@ export default function Login({
         >
           Sign In
         </ButtonSubmit>
-        <ButtonSubmit
-          formAction={signUp}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-          pendingText="Signing Up..."
-        >
-          Sign Up
-        </ButtonSubmit>
+
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
