@@ -44,7 +44,7 @@ export default function page() {
   };
   const generateQrCodesForCurrentCodes = async () => {
     const qrCodePromises = codes.map((code) =>
-      generateQrCode(`${process.env.NEXT_PUBLIC_URL}/c/${code}`),
+      generateQrCode(`${process.env.NEXT_PUBLIC_QRCODE_URL}/c/${code}`),
     );
     const generatedQrCodes = await Promise.all(qrCodePromises);
     setQrCodes(generatedQrCodes);
