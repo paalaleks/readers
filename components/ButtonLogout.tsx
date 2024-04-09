@@ -1,20 +1,24 @@
-import { createClient } from "@/utils/supabase/server";
+"use client";
+
+import { createClient } from "@/utils/supabase/client";
 import { Power } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default async function ButtonLogout() {
+export default function ButtonLogout() {
+  const router = useRouter();
   const signOut = async () => {
-    "use server";
-
     const supabase = createClient();
     await supabase.auth.signOut();
-    return redirect("/");
+    router.push("/");
   };
 
   return (
-    <form action={signOut}>
-      <button className="m-2">
-        <Power size={16} />
+    <form
+      action={signOut}
+      className={`text-foreground hover:text-primary opacity-50 flex justify-start`}
+    >
+      <button className="flex items-center">
+        <span>Logout</span>
       </button>
     </form>
   );

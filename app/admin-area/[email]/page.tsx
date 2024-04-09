@@ -4,19 +4,19 @@ export default async function Page({ params }: { params: { email: string } }) {
   const decodedEmail = decodeURIComponent(params.email);
 
   return (
-    <>
-      <div className="h-screen flex items-center flex-col w-full justify-center">
-        <nav className="w-full flex justify-center">hey, {decodedEmail}.</nav>
-        <div className="px-6">
-          <p>Create Unique labels by clicking the button.</p>
-        </div>
-        <Link
-          href={`/admin-area/${decodeURIComponent(params.email)}/generate`}
-          className="rounded-lg py-2 mt-8 w-full bg-muted text-center"
-        >
-          Generate
-        </Link>
-      </div>
-    </>
+    <div className="h-screen flex items-center flex-col w-full justify-center">
+      <p className="flex justify-center flex-col">
+        hey, {decodedEmail}.
+        <span className="ml-1">
+          Create Unique labels by clicking the button.
+        </span>
+      </p>
+      <Link
+        href={`/admin-area/${decodeURIComponent(params.email)}/generate`}
+        className="rounded-lg py-2 mt-8 bg-muted text-center w-32 mx-auto hover:bg-primary/70 hover:text-background transition-colors ease-in-out"
+      >
+        Generate
+      </Link>
+    </div>
   );
 }

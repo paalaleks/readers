@@ -18,5 +18,10 @@ export default async function layout({
         Oops, invalid email or not logged in
       </div>
     );
-  } else if (data.session) return <div>{children}</div>;
+  } else if (data.session)
+    return (
+      <div className="flex flex-col justify-center items-center">
+        {children}
+      </div>
+    );
 }

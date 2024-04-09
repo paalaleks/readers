@@ -54,13 +54,14 @@ export default function page() {
     if (codes.length > 0) {
       generateQrCodesForCurrentCodes();
       // deactive if you dont want to upload to supabase
-      // uploadToSupabase({ codes });
+      uploadToSupabase({ codes });
     }
   }, [codes]);
 
   useEffect(() => {
     generateCodes();
   }, []);
+  console.log(codes);
 
   return <LabelSheet qrCodes={qrCodes} />;
 }

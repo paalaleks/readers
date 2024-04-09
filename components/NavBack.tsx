@@ -1,14 +1,16 @@
-import Link from "next/link";
+"use client";
+
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 export default function NavBack() {
+  const router = useRouter();
+
   return (
-    <Link
-      href="/"
-      className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
-    >
-      <ArrowLeft className="mr-2" size={16} />
+    <Button variant="ghost" onClick={() => router.back()} className="">
+      <ArrowLeft size={18} className="mr-2" />
       Back
-    </Link>
+    </Button>
   );
 }
