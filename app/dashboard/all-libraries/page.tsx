@@ -2,7 +2,7 @@ import NavMyLibrary from "@/app/Nav";
 import AutocompletePeople from "./AutocompletePeople";
 import FriendNotifications from "./FriendNotifications";
 import { createClient } from "@/utils/supabase/server";
-import useUserServer from "@/hooks/useUserServer";
+import userServer from "@/hooks/userServer";
 import RenderedLibraries from "./RenderedLibraries";
 import { FriendLibrary, MyLibrary } from "@/types/project.types";
 import NavDashboardLinks from "@/app/NavDashboardLinks";
@@ -10,7 +10,7 @@ import Wrapper from "@/components/Wrapper";
 
 export default async function page() {
   const supabase = createClient();
-  const user = await useUserServer();
+  const user = await userServer();
 
   const { data: friendsData } = await supabase
     .from("friends")
@@ -55,7 +55,6 @@ export default async function page() {
           <>
             <AutocompletePeople myLibrary={myLibrary} />
             <FriendNotifications initialFriends={friends || []} />
-            <div className="w-0 min-[450px]:w-16" />
           </>
         }
         children2={<NavDashboardLinks />}

@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback, RefObject } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  RefObject,
+  PointerEvent,
+} from "react";
 import {
   Messages,
   StyledMessageResult,
@@ -20,8 +27,12 @@ export default function MessagesComponent({
   styledMessages: StyledMessageResult;
   staticUserId: string;
 }) {
-  const { styledSubject, styledBody, qrStyledSubject, qrStyledBody } =
-    styledMessages;
+  const {
+    styledSubject,
+    styledBody,
+    qrStyledSubject,
+    qrStyledBody,
+  } = styledMessages;
 
   const [contentState, setContentState] = useState<ContentState>({
     libSubject: styledSubject || "",
@@ -37,14 +48,29 @@ export default function MessagesComponent({
     }
   );
 
-  const [lastSavedContentState, setLastSavedContentState] =
-    useState<ContentState>(contentState);
+  const [lastSavedContentState, setLastSavedContentState] = useState<
+    ContentState
+  >(contentState);
 
-  const extractTextFromHTML = (htmlString: string) => {
+  const supabase = createClient();
+
+  const extractTextFromHTML = useCallback((htmlString: string) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
     return doc.body.textContent || "";
-  };
+  }, []);
+
+  const normalizeContent = useCallback(
+    (content: ContentState) => {
+      return {
+        libSubject: extractTextFromHTML(content.libSubject),
+        libBody: extractTextFromHTML(content.libBody),
+        qrSubject: extractTextFromHTML(content.qrSubject),
+        qrBody: extractTextFromHTML(content.qrBody),
+      };
+    },
+    [extractTextFromHTML]
+  );
 
   const initializeContent = useCallback(() => {
     if (libSubjectRef.current)
@@ -58,6 +84,56 @@ export default function MessagesComponent({
   useEffect(() => {
     initializeContent();
   }, [initializeContent]);
+
+  const hasContentChanged = useCallback(
+    (currentContent: ContentState, lastSavedContent: ContentState) => {
+      const currentNormalized = normalizeContent(currentContent);
+      const lastSavedNormalized = normalizeContent(lastSavedContent);
+      return (
+        JSON.stringify(currentNormalized) !==
+        JSON.stringify(lastSavedNormalized)
+      );
+    },
+    [normalizeContent] // Add any dependencies if `normalizeContent` uses external values
+  );
+
+  const saveToDatabase = useCallback(
+    async (plainTextValues: Messages) => {
+      if (!hasContentChanged(plainTextValues, lastSavedContentState)) {
+        console.log("No changes detected, skipping save to database.");
+        return;
+      }
+      let { error } = await supabase
+        .from("myLibrary")
+        .update({ messages: plainTextValues })
+        .eq("user_id", staticUserId)
+        .select("messages");
+
+      setSavedSuccessfully((currentState) => ({
+        ...currentState,
+        savedToDb: "true",
+      }));
+
+      setLastSavedContentState(contentState);
+
+      setTimeout(() => {
+        setSavedSuccessfully((currentState) => ({
+          ...currentState,
+          savedToDb: "false",
+        }));
+      }, 2000);
+      revalidateSettingsPath();
+
+      if (error) throw error;
+    },
+    [
+      contentState,
+      lastSavedContentState,
+      staticUserId,
+      hasContentChanged,
+      supabase,
+    ]
+  );
 
   useEffect(() => {
     const libSubjectText = extractTextFromHTML(contentState.libSubject);
@@ -73,59 +149,7 @@ export default function MessagesComponent({
     };
 
     saveToDatabase(plainTextValues);
-  }, [contentState]);
-
-  const supabase = createClient();
-
-  const normalizeContent = (content: ContentState) => {
-    return {
-      libSubject: extractTextFromHTML(content.libSubject),
-      libBody: extractTextFromHTML(content.libBody),
-      qrSubject: extractTextFromHTML(content.qrSubject),
-      qrBody: extractTextFromHTML(content.qrBody),
-    };
-  };
-
-  const hasContentChanged = (
-    currentContent: ContentState,
-    lastSavedContent: ContentState
-  ) => {
-    const currentNormalized = normalizeContent(currentContent);
-    const lastSavedNormalized = normalizeContent(lastSavedContent);
-
-    return (
-      JSON.stringify(currentNormalized) !== JSON.stringify(lastSavedNormalized)
-    );
-  };
-
-  const saveToDatabase = async (plainTextValues: Messages) => {
-    if (!hasContentChanged(plainTextValues, lastSavedContentState)) {
-      console.log("No changes detected, skipping save to database.");
-      return;
-    }
-    let { error } = await supabase
-      .from("myLibrary")
-      .update({ messages: plainTextValues })
-      .eq("user_id", staticUserId)
-      .select("messages");
-
-    setSavedSuccessfully((currentState) => ({
-      ...currentState,
-      savedToDb: "true",
-    }));
-
-    setLastSavedContentState(contentState);
-
-    setTimeout(() => {
-      setSavedSuccessfully((currentState) => ({
-        ...currentState,
-        savedToDb: "false",
-      }));
-    }, 2000);
-    revalidateSettingsPath();
-
-    if (error) throw error;
-  };
+  }, [contentState, saveToDatabase, extractTextFromHTML]);
 
   useEffect(() => {
     (async () => {
@@ -143,7 +167,7 @@ export default function MessagesComponent({
         );
       }
     })();
-  }, []);
+  }, [qrStyledBody, qrStyledSubject, styledBody, styledSubject]);
 
   const handleContentChange = useCallback(
     async (id: string, content: string, fieldset: string) => {
@@ -158,9 +182,7 @@ export default function MessagesComponent({
         }));
       } catch (error) {
         setSavedSuccessfully({ fieldset: "", savedToDb: "" });
-        (
-          error as Error
-        ).message = `An error occurred while updating the content: ${
+        (error as Error).message = `An error occurred while updating the content: ${
           (error as Error).message
         }`;
       }
@@ -185,42 +207,43 @@ export default function MessagesComponent({
     setLastFocused({ ref, fieldset: parentFieldset });
   };
 
-  const handleClick =
-    (text: string) => (event: React.PointerEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+  const handleClick = (text: string) => (
+    event: PointerEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
 
-      const buttonFieldset = event.currentTarget.closest("fieldset");
+    const buttonFieldset = event.currentTarget.closest("fieldset");
 
-      if (buttonFieldset !== lastFocused.fieldset) {
-        console.error(
-          "Button and contentEditable element belong to different groups."
-        );
-        return;
-      }
+    if (buttonFieldset !== lastFocused.fieldset) {
+      console.error(
+        "Button and contentEditable element belong to different groups."
+      );
+      return;
+    }
 
-      const currentRef = lastFocused.ref.current;
+    const currentRef = lastFocused.ref.current;
 
-      if (currentRef && document.activeElement === currentRef) {
-        const selection = window.getSelection();
-        if (!selection || selection.rangeCount === 0) return;
+    if (currentRef && document.activeElement === currentRef) {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return;
 
-        const range = selection.getRangeAt(0);
-        range.deleteContents();
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
 
-        const span = document.createElement("span");
-        span.classList.add("inserted-text");
-        span.textContent = text;
-        span.contentEditable = "false";
+      const span = document.createElement("span");
+      span.classList.add("inserted-text");
+      span.textContent = text;
+      span.contentEditable = "false";
 
-        range.insertNode(span);
+      range.insertNode(span);
 
-        const newRange = document.createRange();
-        newRange.setStartAfter(span);
-        newRange.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(newRange);
-      }
-    };
+      const newRange = document.createRange();
+      newRange.setStartAfter(span);
+      newRange.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    }
+  };
 
   return (
     <>

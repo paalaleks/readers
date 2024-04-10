@@ -1,7 +1,7 @@
 import NavDashboardLinks from "@/app/NavDashboardLinks";
 import Nav from "@/app/Nav";
 import FormPairCode from "./FormPairCode";
-import useUserServer from "@/hooks/useUserServer";
+import userServer from "@/hooks/userServer";
 import Wrapper from "@/components/Wrapper";
 
 export default async function page({
@@ -9,7 +9,7 @@ export default async function page({
 }: {
   searchParams: { message: string };
 }) {
-  const user = await useUserServer();
+  const user = await userServer();
 
   return (
     <Wrapper>

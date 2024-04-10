@@ -1,8 +1,8 @@
 import SendEmail from "./SendEmail";
 import { createClient } from "@/utils/supabase/server";
-import { useQrBorrow } from "./MutateMessage";
+import { generateMailtoHrefForBook } from "./GenerateMailtoHrefForBook";
 
-export default async function page({ params }: { params: { code: string } }) {
+export default async function Page({ params }: { params: { code: string } }) {
   const supabase = createClient();
 
   let { data: myLibrary, error } = await supabase
@@ -22,8 +22,12 @@ export default async function page({ params }: { params: { code: string } }) {
   const { books, email, username, messages } = myLibrary;
   const book = books[0];
 
-  const mailtoHref = await useQrBorrow(book, email, username, messages);
-  console.log(mailtoHref);
+  const mailtoHref = await generateMailtoHrefForBook(
+    book,
+    email,
+    username,
+    messages
+  );
 
   return <SendEmail mailto={mailtoHref ?? ""} />;
 }

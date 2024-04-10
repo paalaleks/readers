@@ -2,13 +2,13 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { Messages } from "@/types/project.types";
-import useUserServer from "@/hooks/useUserServer";
+import userServer from "@/hooks/userServer";
 import { Book, FriendLibrary, StyledMessageResult } from "@/types/project.types";
 
 
 async function fetchMessages(): Promise<Messages | null> {
     const supabase = createClient();
-    const user = await useUserServer();
+    const user = await userServer();
 
     if(!user) return null;
     try {
@@ -30,7 +30,7 @@ async function fetchMessages(): Promise<Messages | null> {
     }
 }
 
-export const useBorrowRequest = async (book: Book, lib: FriendLibrary) => {
+export const borrowRequest = async (book: Book, lib: FriendLibrary) => {
     const messages = await fetchMessages();
     const emailSubject = messages?.libSubject;
     const emailBody = messages?.libBody;
@@ -38,7 +38,7 @@ export const useBorrowRequest = async (book: Book, lib: FriendLibrary) => {
     const formattedEmailSubject = emailSubject?.replace("TITLE", book.title)
         ?.replace("AUTHOR", book.author)
         ?.replace("OWNER", lib.username || "Friend") ;
-    ;    
+        
 
     const formattedEmailBody = emailBody?.replace("TITLE", book.title)
         ?.replace("AUTHOR", book.author)
@@ -55,7 +55,7 @@ export const useBorrowRequest = async (book: Book, lib: FriendLibrary) => {
     return mailtoHref;
 };
 
-export const useStyledMessages = async (): Promise<StyledMessageResult> => {
+export const getStyledMessages = async (): Promise<StyledMessageResult> => {
     const messages = await fetchMessages();
 
     if (!messages) {
@@ -71,11 +71,11 @@ export const useStyledMessages = async (): Promise<StyledMessageResult> => {
         ?.replace("AUTHOR", `<span contenteditable="false" class="inserted-text">AUTHOR</span>` || "")
         ?.replace("OWNER", `<span contenteditable="false" class="inserted-text">OWNER</span>` || "") ;
 
-    ;    
+        
     const styledBody = emailBody?.replace("TITLE", `<span contenteditable="false" class="inserted-text">TITLE</span>` || "")
         ?.replace("AUTHOR", `<span contenteditable="false" class="inserted-text">AUTHOR</span>` || "")
         ?.replace("OWNER", `<span contenteditable="false" class="inserted-text">OWNER</span>` || "") ;
-    ;    
+        
     const qrSubject = messages?.qrSubject;
     const qrMessageBody = messages?.qrBody;
 
@@ -83,7 +83,7 @@ export const useStyledMessages = async (): Promise<StyledMessageResult> => {
         ?.replace("AUTHOR", `<span contenteditable="false" class="inserted-text">AUTHOR</span>` || "")
         ?.replace("OWNER", `<span contenteditable="false" class="inserted-text">OWNER</span>` || "") ;
 
-    ;
+    
     const qrStyledBody = qrMessageBody?.replace("TITLE", `<span contenteditable="false" class="inserted-text">TITLE</span>` || "")
         ?.replace("AUTHOR", `<span contenteditable="false" class="inserted-text">AUTHOR</span>` || "")
         ?.replace("OWNER", `<span contenteditable="false" class="inserted-text">OWNER</span>` || "") ;    

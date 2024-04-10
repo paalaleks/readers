@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function SendEmail({ mailto }: { mailto: string }) {
   useEffect(() => {
     window.location.href = mailto;
-  }, []);
+  }, [mailto]);
 
   return (
     <div className="nav-content-footer min-h-screen flex flex-col justify-center items-center">

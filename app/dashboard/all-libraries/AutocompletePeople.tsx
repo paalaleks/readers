@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
-import { Search, UserCheck, UserPlus, X } from "lucide-react";
+import { UserCheck, UserPlus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
@@ -20,33 +20,32 @@ export default function AutocompletePeople({
   const [friendReqSent, setFriendReqSent] = useState<string[]>([]);
   const supabase = createClient();
 
+  const fetchSuggestions = useCallback(
+    async (input: string) => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("myLibrary")
+        .select("user_id, username, email, avatar, books")
+        .or(`email.ilike.%${input}%, username.ilike.%${input}%`)
+        .neq("user_id", myLibrary.user_id)
+        .limit(10);
+
+      setLoading(false);
+      if (error) {
+        console.error("Error fetching suggestions", error);
+        return;
+      }
+
+      setSuggestions(data || []);
+    },
+    [myLibrary.user_id, supabase]
+  );
+
   useEffect(() => {
     if (myLibrary.user_id && inputValue) fetchSuggestions(inputValue);
-  }, [inputValue]);
+  }, [inputValue, myLibrary.user_id, fetchSuggestions]);
 
-  useEffect(() => {
-    fetchSentFriendRequests();
-  }, []);
-
-  const fetchSuggestions = async (input: string) => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("myLibrary")
-      .select("user_id, username, email, avatar, books")
-      .or(`email.ilike.%${input}%, username.ilike.%${input}%`)
-      .neq("user_id", myLibrary.user_id)
-      .limit(10);
-
-    setLoading(false);
-    if (error) {
-      console.error("Error fetching suggestions", error);
-      return;
-    }
-
-    setSuggestions(data || []);
-  };
-
-  const fetchSentFriendRequests = async () => {
+  const fetchSentFriendRequests = useCallback(async () => {
     const { data, error } = await supabase
       .from("friends")
       .select("receiver_id")
@@ -59,7 +58,7 @@ export default function AutocompletePeople({
 
     const friendRequests = data.map((request: any) => request.receiver_id);
     setFriendReqSent(friendRequests);
-  };
+  }, [supabase, myLibrary.user_id]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -141,7 +140,7 @@ export default function AutocompletePeople({
               >
                 <div className="flex items-center">
                   <Image
-                    src={suggestion.avatar || "/images/placeholder.png"}
+                    src={suggestion.avatar || "/images/avatar-circle.svg"}
                     height={100}
                     width={100}
                     alt="avatar"

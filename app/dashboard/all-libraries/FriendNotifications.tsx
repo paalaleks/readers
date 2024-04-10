@@ -106,8 +106,8 @@ export default function FriendNotifications({
     fetchFriendRequests();
   };
 
-  const declineFriendRequest = async (senderId: string, receiverId: string) => {
-    const { data, error } = await supabase
+  const declineFriendRequest = async (senderId: string) => {
+    const { error } = await supabase
       .from("friends")
       .delete()
       .eq("sender_id", senderId);
@@ -183,12 +183,7 @@ export default function FriendNotifications({
                       Accept
                     </button>
                     <button
-                      onClick={() =>
-                        declineFriendRequest(
-                          request.sender_id,
-                          request.receiver_id
-                        )
-                      }
+                      onClick={() => declineFriendRequest(request.sender_id)}
                     >
                       Decline
                     </button>
@@ -198,7 +193,9 @@ export default function FriendNotifications({
             })}
           </PopoverContent>
         </>
-      ) : undefined}
+      ) : (
+        undefined
+      )}
     </Popover>
   );
 }

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import SavedAlert from "@/components/SavedAlert";
 
-export default function password() {
+export default function Password() {
   const [passwordState, setPasswordState] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
   const supabase = createClient();

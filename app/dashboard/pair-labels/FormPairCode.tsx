@@ -1,7 +1,7 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   InputOTP,
@@ -17,13 +17,7 @@ export default function FormPairCode({ userId: userId }: { userId: string }) {
   const router = useRouter();
   const supabase = createClient();
 
-  useEffect(() => {
-    if (codeValue.length === 6) {
-      handleSubmit();
-    }
-  }, [codeValue]);
-
-  const fetchCurrentUserData = async () => {
+  const fetchCurrentUserData = useCallback(async () => {
     const { data: currentUserData, error: currentUserError } = await supabase
       .from("myLibrary")
       .select("codeSeries")
@@ -31,9 +25,43 @@ export default function FormPairCode({ userId: userId }: { userId: string }) {
       .single();
 
     return { currentUserData, currentUserError };
-  };
+  }, [supabase, userId]);
 
-  const handleSubmit = async () => {
+  const uploadJsonToSupabase = useCallback(
+    async ({ filteredCodes }: { filteredCodes: string[] }) => {
+      const {
+        currentUserData,
+        currentUserError,
+      } = await fetchCurrentUserData();
+
+      if (currentUserError) {
+        setStatusText("Pairing failed");
+        return;
+      }
+
+      let existingCodes = currentUserData?.codeSeries || [];
+      let updatedCodes = [
+        ...existingCodes,
+        ...filteredCodes.filter((code) => !existingCodes.includes(code)),
+      ];
+
+      const { error: updateError } = await supabase
+        .from("myLibrary")
+        .update({ codeSeries: updatedCodes })
+        .eq("user_id", userId);
+
+      if (updateError) {
+        setStatusText("Pairing failed. Failed to add more codes.");
+      } else {
+        router.push(
+          "/dashboard/my-library/books?message=You have successfully paired labels, you can now add books to your library."
+        );
+      }
+    },
+    [fetchCurrentUserData, router, supabase, userId]
+  );
+
+  const handleSubmit = useCallback(async () => {
     const { currentUserData, currentUserError } = await fetchCurrentUserData();
 
     if (currentUserError) {
@@ -68,40 +96,13 @@ export default function FormPairCode({ userId: userId }: { userId: string }) {
       await uploadJsonToSupabase({ filteredCodes: uniqueCodes.codeSeriesJSON });
       setStatusText("Paired labels successfully");
     }
-  };
+  }, [codeValue, supabase, fetchCurrentUserData, uploadJsonToSupabase]);
 
-  const uploadJsonToSupabase = async ({
-    filteredCodes,
-  }: {
-    filteredCodes: any[];
-  }) => {
-    const { currentUserData, currentUserError } = await fetchCurrentUserData();
-
-    if (currentUserError) {
-      setStatusText("Pairing failed");
-      return;
+  useEffect(() => {
+    if (codeValue.length === 6) {
+      handleSubmit();
     }
-
-    let existingCodes = currentUserData?.codeSeries || [];
-
-    let updatedCodes = [
-      ...existingCodes,
-      ...filteredCodes.filter((code) => !existingCodes.includes(code)),
-    ];
-
-    const { error: updateError } = await supabase
-      .from("myLibrary")
-      .update({ codeSeries: updatedCodes })
-      .eq("user_id", userId);
-
-    if (updateError) {
-      setStatusText("Pairing failed. Failed to add more codes.");
-    } else {
-      router.push(
-        "/dashboard/my-library/books?message=You have successfully paired labels, you can now add books to your library."
-      );
-    }
-  };
+  }, [codeValue, handleSubmit]);
 
   return (
     <>

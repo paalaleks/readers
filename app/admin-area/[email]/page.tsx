@@ -5,11 +5,9 @@ export default async function Page({ params }: { params: { email: string } }) {
 
   return (
     <div className="h-screen flex items-center flex-col w-full justify-center">
-      <p className="flex justify-center flex-col">
+      <p className="flex justify-center flex-col text-center">
         hey, {decodedEmail}.
-        <span className="ml-1">
-          Create Unique labels by clicking the button.
-        </span>
+        <span className="">Create Unique labels by clicking the button.</span>
       </p>
       <Link
         href={`/admin-area/${decodeURIComponent(params.email)}/generate`}

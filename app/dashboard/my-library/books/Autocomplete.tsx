@@ -8,7 +8,7 @@ import React, {
   KeyboardEvent,
   useRef,
 } from "react";
-import { debounce, set } from "lodash";
+import { debounce } from "lodash";
 import { OpenLibraryResponse } from "@/types/openLibraryTypes";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -33,7 +33,7 @@ interface AutocompleteProps {
   setToggleCoverSelection: (toggle: boolean) => void;
 }
 
-export default function ({
+export default function Autocomplete({
   open,
   selectedBook,
   setSelectedBook,
@@ -94,7 +94,7 @@ export default function ({
         setLoading(false);
       }
     }, 300),
-    []
+    [latestRequest]
   );
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function ({
       setSuggestions([]);
       setCover("");
     }
-  }, [inputValue, hasSelected]);
+  }, [inputValue, hasSelected, fetchBookSuggestions]);
 
   useEffect(() => {
     if (suggestionRefs.current[activeIndex]) {
@@ -198,9 +198,8 @@ export default function ({
             {cover && (
               <button
                 onClick={handleToggleCoverSelection}
-                className={`relative flex items-center justify-center ${
-                  hasSelected && "group"
-                } `}
+                className={`relative flex items-center justify-center ${hasSelected &&
+                  "group"} `}
                 disabled={!hasSelected}
               >
                 <NextImage
@@ -259,3 +258,5 @@ export default function ({
     </>
   );
 }
+
+

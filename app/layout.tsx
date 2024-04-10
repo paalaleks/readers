@@ -1,5 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import React from "react";
 import Footer from "@/components/Footer";
 
 export default function RootLayout({

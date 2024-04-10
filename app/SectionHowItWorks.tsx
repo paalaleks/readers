@@ -15,8 +15,8 @@ export default function HowItWorks() {
             Register a book
           </h2>
           <p className="text-2xl max-w-md max-w-[400px]:pb-0 pb-4 text-center text-primary/90">
-            Attach a label and register the book it's attached to inside the
-            app.
+            Attach a label and register the book it&apos;s attached to inside
+            the app.
           </p>
         </div>
         <Image

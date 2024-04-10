@@ -1,6 +1,6 @@
 import { Book, Messages } from "@/types/project.types";
 
-export const useQrBorrow = async (book: Book, email: string, username: string, 
+export const generateMailtoHrefForBook = async (book: Book, email: string, username: string, 
     messages: Messages ) => {
 
    const qrSubject = messages?.qrSubject;
@@ -9,7 +9,7 @@ export const useQrBorrow = async (book: Book, email: string, username: string,
    const formattedQrSubject = qrSubject?.replace("TITLE", book.title)
        ?.replace("AUTHOR", book.author)
        ?.replace("OWNER", username || "Friend") ;
-   ;    
+       
 
    const formattedQrBody = qrBody?.replace("TITLE", book.title)
        ?.replace("AUTHOR", book.author)

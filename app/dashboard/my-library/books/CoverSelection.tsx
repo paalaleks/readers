@@ -1,7 +1,7 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 
 interface Book {
   title: string;
@@ -9,7 +9,8 @@ interface Book {
   cover?: string;
   key: string;
 }
-export default function ({
+
+export default function CoverSelection({
   selectedBook,
   setCover,
   setToggleCoverSelection,
@@ -33,9 +34,9 @@ export default function ({
       setCovers(works);
     };
     getWorks();
-  }, []);
+  }, [selectedBook?.key]);
 
-  const handleChangeCover = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleChangeCover = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newCover = `https://covers.openlibrary.org/b/id/${
       (e.currentTarget.childNodes[0] as HTMLImageElement).alt
@@ -53,7 +54,6 @@ export default function ({
       className={`h-32 w-24 bg-muted rounded animate-pulse`}
     ></div>
   ));
-
   return (
     <ScrollArea className="h-[430px]">
       <div className="grid gap-x-2 gap-y-4 grid-cols-2 min-[346px]:grid-cols-3 min-[446px]:grid-cols-4">
@@ -80,3 +80,4 @@ export default function ({
     </ScrollArea>
   );
 }
+

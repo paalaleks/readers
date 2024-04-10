@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface LabelSheetProps {
   qrCodes: string[];
 }
@@ -32,7 +34,9 @@ export default function LabelSheet({ qrCodes }: LabelSheetProps) {
                     >
                       <div className="h-full w-full flex items-center justify-center text-center">
                         {qrCodeUrl ? (
-                          <img
+                          <Image
+                            width={100}
+                            height={200}
                             src={qrCodeUrl}
                             alt={`QR Code ${qrCodeIndex + 1}`}
                             style={{ maxWidth: "100%", maxHeight: "100%" }}
@@ -55,7 +59,7 @@ export default function LabelSheet({ qrCodes }: LabelSheetProps) {
   return (
     <>
       {Array.from({ length: numberOfPages }).map((_, pageIndex) =>
-        renderPage(pageIndex),
+        renderPage(pageIndex)
       )}
     </>
   );

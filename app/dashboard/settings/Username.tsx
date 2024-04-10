@@ -28,7 +28,7 @@ export default function Username({
       return;
     }
 
-    const { data, error, status } = await supabase
+    const { error, status } = await supabase
       .from("myLibrary")
       .update({ username: usernameState })
       .eq("user_id", staticUserId);

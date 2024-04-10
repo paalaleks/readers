@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense, use, useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
@@ -29,7 +29,14 @@ export default function RenderedBooks({
     setLoading(false);
   }, []);
 
-  async function fetchLibrary() {
+  const { setOpen } = useProvider();
+  const [selectedBookUrl, setSelectedBookUrl] = useState<string | null>(null);
+
+  const supabase = createClient();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+
+  const fetchLibrary = useCallback(async () => {
     let { data: libraryData, error } = await supabase
       .from("myLibrary")
       .select("books, codeSeries, user_id")
@@ -47,14 +54,7 @@ export default function RenderedBooks({
 
     setMyLibrary(fetchedLibrary);
     revalidateBooksPath();
-  }
-
-  const { setOpen } = useProvider();
-  const [selectedBookUrl, setSelectedBookUrl] = useState<string | null>(null);
-
-  const supabase = createClient();
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
+  }, [supabase, staticUserId]);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
@@ -64,7 +64,7 @@ export default function RenderedBooks({
         replace("/dashboard/my-library/books");
       }, 3000);
     }
-  }, [searchParams, replace]);
+  }, [searchParams, replace, fetchLibrary]);
 
   const onOpenChange = (open: boolean) => {
     if (!open) {
@@ -94,7 +94,7 @@ export default function RenderedBooks({
       return book;
     });
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("myLibrary")
       .update({ books: updatedBooks })
       .eq("user_id", staticUserId)
@@ -132,7 +132,7 @@ export default function RenderedBooks({
       [field]: value,
     };
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("myLibrary")
       .update({ books: updatedBooks })
       .match({ user_id: staticUserId });

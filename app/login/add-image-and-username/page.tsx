@@ -11,7 +11,7 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import AvatarUpload from "@/components/AvatarUpload";
 
-export default function page() {
+export default function Page() {
   const [username, setUsername] = useState<any>("");
 
   const { user } = useUser();
@@ -21,7 +21,7 @@ export default function page() {
     e.preventDefault();
     const supabase = createClient();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("myLibrary")
       .update({ username })
       .eq("user_id", user?.id)

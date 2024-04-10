@@ -1,9 +1,9 @@
 "use client";
-
+import React from "react";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useUser from "@/hooks/useUser";
 import { Upload } from "lucide-react";
 
@@ -21,7 +21,7 @@ export default function AvatarUpload({
     const file = e.target.files?.[0];
     if (file) {
       setAvatar(file);
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from("avatars")
         .upload(`${file.name}`, file);
       const {
@@ -32,7 +32,7 @@ export default function AvatarUpload({
         .update({ avatar: publicUrl })
         .eq("user_id", user?.id)
         .single();
-      if (imageUrl) {
+      if (imageUrl || !error) {
         return router.push(
           "/my-library/settings?message=Avatar updated successfully."
         );

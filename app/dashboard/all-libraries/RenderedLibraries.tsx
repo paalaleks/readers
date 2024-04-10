@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Book, FriendLibrary } from "@/types/project.types";
 import * as RadixPopover from "@radix-ui/react-popover";
 import { BookUser } from "lucide-react";
-import { useBorrowRequest } from "../settings/MutateMessages";
+import { borrowRequest } from "../settings/MutateMessages";
 
 export default function RenderedLibraries({
   staticFriendLibraries,
@@ -29,7 +29,7 @@ export default function RenderedLibraries({
   };
 
   const handleBorrowRequest = async (book: Book, lib: FriendLibrary) => {
-    const mailtoHref = await useBorrowRequest(book, lib);
+    const mailtoHref = await borrowRequest(book, lib);
     if (mailtoHref) {
       window.location.href = mailtoHref;
     }

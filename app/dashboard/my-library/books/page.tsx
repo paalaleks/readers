@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import useUserServer from "@/hooks/useUserServer";
+import userServer from "@/hooks/userServer";
 import Nav from "../../../Nav";
 import AddBooks from "./AddBooks";
 import RenderedBooks from "./RenderedBooks";
@@ -8,7 +8,7 @@ import NavDashboardLinks from "@/app/NavDashboardLinks";
 
 export default async function page() {
   const supabase = createClient();
-  const user = await useUserServer();
+  const user = await userServer();
 
   const { data } = await supabase
     .from("myLibrary")
@@ -26,7 +26,7 @@ export default async function page() {
         children1={
           <>
             <ToggleBooksLabels />
-            <AddBooks />
+            {staticCodeSeries ? <AddBooks /> : <div className="w-[52px]"></div>}
           </>
         }
         children2={<NavDashboardLinks />}

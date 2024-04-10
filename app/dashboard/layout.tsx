@@ -2,12 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 
 import { redirect } from "next/navigation";
 import { Provider } from "./Provider";
+import { ReactNode } from "react";
 
-export default async function layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function layout({ children }: { children: ReactNode }) {
   const supabase = createClient();
 
   const {

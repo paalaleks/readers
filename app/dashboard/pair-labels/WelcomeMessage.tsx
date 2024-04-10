@@ -1,7 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { redirect } from "next/navigation";
 

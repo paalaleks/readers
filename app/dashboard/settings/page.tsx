@@ -1,10 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
 import AvatarUpload from "@/components/AvatarUpload";
 import Nav from "@/app/Nav";
-import { useStyledMessages } from "./MutateMessages";
+import { getStyledMessages } from "./MutateMessages";
 import Username from "./Username";
 import Email from "./Email";
-import useUserServer from "@/hooks/useUserServer";
+import userServer from "@/hooks/userServer";
 import Password from "./Password";
 import DeleteAccount from "./DeleteAccount";
 import Wrapper from "@/components/Wrapper";
@@ -12,7 +12,7 @@ import NavDashboardLinks from "@/app/NavDashboardLinks";
 import MessagesComponent from "./Messages";
 
 export default async function page() {
-  const user = await useUserServer();
+  const user = await userServer();
 
   const supabase = createClient();
 
@@ -21,12 +21,14 @@ export default async function page() {
     .select("*")
     .eq("user_id", user?.id);
 
+  if (error) console.log(error.message);
+
   const staticAvatar = myLibrary && myLibrary[0]?.avatar;
   const staticUsername = myLibrary && myLibrary[0]?.username;
   const staticEmail = myLibrary && myLibrary[0]?.email;
   const staticUserId = myLibrary && myLibrary[0]?.user_id;
 
-  const styledMessages = await useStyledMessages();
+  const styledMessages = await getStyledMessages();
 
   return (
     <Wrapper>

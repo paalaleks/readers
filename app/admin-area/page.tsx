@@ -16,5 +16,5 @@ export default async function page() {
   if (userLoggedIn) {
     redirect(`admin-area/${userLoggedIn.email}`);
   }
-  return <div>"redirecting..."</div>;
+  return <div>redirecting...</div>;
 }
