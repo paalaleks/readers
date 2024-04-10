@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "../../../Nav";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
-import { CodeSeriesItem, MyLibrary } from "@/types/project.types";
+import { CodeSeriesItem, MyLibrary, Book } from "@/types/project.types";
 import ToggleBooksLabels from "../ToggleBooksLabels";
 import NavDashboardLinks from "@/app/NavDashboardLinks";
 
@@ -31,7 +31,7 @@ export default async function page() {
   );
 
   const findBookByCode = (code: string) =>
-    myLibrary?.books?.find((book: { url: string }) => book.url === code);
+    myLibrary?.books?.find((book: Book) => book.url === code);
 
   return (
     <>
