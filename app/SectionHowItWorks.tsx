@@ -1,7 +1,6 @@
 import Image from "next/image";
-import React from "react";
-import scanHand from "../public/images/mobilescan.png";
-import labelsAndBooks from "../public/images/labelsAndBooks.png";
+import scanHand from "@/public/images/mobilescan.png";
+import product from "@/public/images/product.png";
 
 export default function HowItWorks() {
   return (
@@ -21,7 +20,7 @@ export default function HowItWorks() {
         </div>
         <Image
           alt="Hand scaning book qr-label"
-          src={labelsAndBooks}
+          src={product}
           className=" z-10 animate-fade-in max-w-xl w-full mt-auto px-4"
         />
       </section>
