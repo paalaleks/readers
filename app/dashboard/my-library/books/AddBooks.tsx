@@ -4,7 +4,7 @@ import { ArrowLeft, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import { useState, FormEvent } from "react";
 import Autocomplete from "./Autocomplete";
 import { createClient } from "@/utils/supabase/client";
 import { Json } from "@/types/project.types";
@@ -13,19 +13,12 @@ import { useProvider } from "../../Provider";
 import useUser from "@/hooks/useUser";
 import { revalidateBooksPath } from "../(sa)/revalidatePage";
 
-interface Book {
-  title: string;
-  author?: string;
-  cover?: string;
-  key: string;
-}
-
 export default function AddBooks() {
   const [toggleManually, setToggleManually] = useState<boolean>(false);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [toggleCoverSelection, setToggleCoverSelection] =
-    useState<boolean>(false);
-  const { open, setOpen } = useProvider();
+  const [toggleCoverSelection, setToggleCoverSelection] = useState<boolean>(
+    false
+  );
+  const { open, setOpen, selectedBook, setSelectedBook } = useProvider();
   const supabase = createClient();
   const { userId } = useUser();
 
@@ -55,7 +48,7 @@ export default function AddBooks() {
   const searchParams = useSearchParams();
   const selectedBookUrl = searchParams.get("slot");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!selectedBook || !userId) return;
@@ -152,13 +145,7 @@ export default function AddBooks() {
 
         <form className="grid mt-6 flex-1 gap-2" onSubmit={handleSubmit}>
           <div className={`${toggleManually ? `hidden` : `visible`}`}>
-            <Autocomplete
-              open={open}
-              selectedBook={selectedBook}
-              setSelectedBook={setSelectedBook}
-              toggleCoverSelection={toggleCoverSelection}
-              setToggleCoverSelection={setToggleCoverSelection}
-            />
+            <Autocomplete open={open} />
           </div>
 
           <div

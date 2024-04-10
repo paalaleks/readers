@@ -15,31 +15,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import NextImage from "next/image";
 import Loader from "@/components/Loader";
 import CoverSelection from "./CoverSelection";
-
-interface Book {
-  title: string;
-  author?: string;
-  cover?: string;
-  key: string;
-}
+import { useProvider } from "../../Provider";
 
 interface AutocompleteProps {
   open: boolean;
-  selectedBook: Book | null;
-  setSelectedBook: (
-    value: Book | null | ((prevVar: Book | null) => Book | null)
-  ) => void;
-  toggleCoverSelection: boolean;
-  setToggleCoverSelection: (toggle: boolean) => void;
 }
 
-export default function Autocomplete({
-  open,
-  selectedBook,
-  setSelectedBook,
-  toggleCoverSelection,
-  setToggleCoverSelection,
-}: AutocompleteProps) {
+export default function Autocomplete({ open }: AutocompleteProps) {
   const [suggestions, setSuggestions] = useState<OpenLibraryResponse[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [inputValue, setInputValue] = useState<string>("");
@@ -49,6 +31,12 @@ export default function Autocomplete({
 
   const suggestionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const latestRequest = useRef<number>(0);
+
+  const {
+    setSelectedBook,
+    toggleCoverSelection,
+    setToggleCoverSelection,
+  } = useProvider();
 
   const fetchBookSuggestions = useCallback(
     debounce(async (query: string) => {
@@ -186,12 +174,7 @@ export default function Autocomplete({
   return (
     <>
       {toggleCoverSelection ? (
-        <CoverSelection
-          selectedBook={selectedBook}
-          setCover={setCover}
-          setToggleCoverSelection={setToggleCoverSelection}
-          setSelectedBook={setSelectedBook}
-        />
+        <CoverSelection setCover={setCover} />
       ) : (
         <>
           <div className="h-32 w-24 bg-muted rounded mx-auto mb-4 relative ">

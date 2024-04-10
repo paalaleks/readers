@@ -2,28 +2,16 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
 import { useEffect, useState, MouseEvent } from "react";
+import { Book } from "@/types/project.types";
+import { useProvider } from "../../Provider";
 
-interface Book {
-  title: string;
-  author?: string;
-  cover?: string;
-  key: string;
-}
-
-export default function CoverSelection({
-  selectedBook,
-  setCover,
-  setToggleCoverSelection,
-  setSelectedBook,
-}: {
-  setCover: (cover: string) => void;
-  setToggleCoverSelection: (toggle: boolean) => void;
-  selectedBook: Book | null;
-  setSelectedBook: (
-    value: Book | null | ((prevVar: Book | null) => Book | null)
-  ) => void;
-}) {
+export default function CoverSelection({ setCover }: { setCover: Function }) {
   const [covers, setCovers] = useState<string[]>([]);
+  const {
+    selectedBook,
+    setSelectedBook,
+    setToggleCoverSelection,
+  } = useProvider();
 
   useEffect(() => {
     const getWorks = async () => {

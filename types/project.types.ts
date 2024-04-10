@@ -7,7 +7,7 @@ export type CodeSeriesItem = {
 
 export interface Book {
     key?: string;
-    url: string;
+    url?: string;
     cover: string;
     title: string;
     author: string;
