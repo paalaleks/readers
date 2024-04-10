@@ -8,6 +8,7 @@ import { useProvider } from "../../Provider";
 export default function CoverSelection({ setCover }: { setCover: Function }) {
   const [covers, setCovers] = useState<string[]>([]);
   const {
+    open,
     selectedBook,
     setSelectedBook,
     setToggleCoverSelection,
@@ -36,12 +37,20 @@ export default function CoverSelection({ setCover }: { setCover: Function }) {
     });
     setToggleCoverSelection(false);
   };
+
   const placeholderBooks = Array.from({ length: 12 }, (_, index) => (
     <div
       key={index}
       className={`h-32 w-24 bg-muted rounded animate-pulse`}
     ></div>
   ));
+
+  useEffect(() => {
+    if (!open) {
+      setToggleCoverSelection(false);
+    }
+  }, [open, setToggleCoverSelection]);
+
   return (
     <ScrollArea className="h-[430px]">
       <div className="grid gap-x-2 gap-y-4 grid-cols-2 min-[346px]:grid-cols-3 min-[446px]:grid-cols-4">
@@ -53,7 +62,7 @@ export default function CoverSelection({ setCover }: { setCover: Function }) {
               <button key={index} onClick={handleChangeCover}>
                 <Image
                   src={`https://covers.openlibrary.org/b/id/${cover}-M.jpg`}
-                  alt={cover}
+                  alt={"cover"}
                   className={`rounded h-32 w-24 object-cover relative z-10 group-hover:opacity-70 transition-opacity`}
                   width={128}
                   height={96}

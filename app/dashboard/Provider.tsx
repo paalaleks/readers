@@ -6,8 +6,6 @@ import { Book } from "@/types/project.types";
 interface OpenContextState {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  labelsView: boolean;
-  setLabelsView: React.Dispatch<React.SetStateAction<boolean>>;
   selectedBook: Book | null;
   setSelectedBook: React.Dispatch<React.SetStateAction<Book | null>>;
   toggleCoverSelection: boolean;
@@ -22,7 +20,6 @@ interface ProviderProps {
 
 export const Provider: React.FC<ProviderProps> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [labelsView, setLabelsView] = useState<boolean>(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [toggleCoverSelection, setToggleCoverSelection] = useState<boolean>(
     false
@@ -31,8 +28,6 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
   const value = {
     open,
     setOpen,
-    labelsView,
-    setLabelsView,
     selectedBook,
     setSelectedBook,
     toggleCoverSelection,

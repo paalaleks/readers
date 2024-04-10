@@ -66,11 +66,8 @@ export default function RenderedBooks({
     }
   }, [searchParams, replace, fetchLibrary]);
 
-  const onOpenChange = (open: boolean) => {
-    if (!open) {
-      setSelectedBookUrl(null);
-    }
-  };
+
+  
   const findBookByCode = (code: string) => {
     return myLibrary?.books?.find((book) => book.url === code);
   };
@@ -154,13 +151,17 @@ export default function RenderedBooks({
     setOpen(true);
     replace(`/dashboard/my-library/books?slot=${code}`);
   };
+
   const renderBooks = () => {
     if (staticCodeSeries && staticCodeSeries.length > 0) {
       return staticCodeSeries.map((item, index) => {
         const book = findBookByCode(item.code);
-        const handleOpenChange = (open: boolean) => {
-          setSelectedBookUrl(open ? item.code || null : null);
-          onOpenChange(open);
+        const handleOpenChange = (open: boolean, url?: string) => {
+          if (open) {
+            setSelectedBookUrl(url || null);
+          } else {
+            setSelectedBookUrl(null);
+          }
         };
 
         return (
@@ -185,7 +186,11 @@ export default function RenderedBooks({
                   </p>
                 </>
               ) : (
-                <RadixPopover.Root onOpenChange={handleOpenChange}>
+                <RadixPopover.Root
+                  onOpenChange={(e) =>
+                    book.url && handleOpenChange(e, book.url)
+                  }
+                >
                   <RadixPopover.Anchor className="absolute" />
                   <RadixPopover.Trigger asChild>
                     {loading ? (

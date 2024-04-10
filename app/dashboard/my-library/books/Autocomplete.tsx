@@ -2,7 +2,6 @@
 
 import React, {
   useState,
-  useCallback,
   useEffect,
   ChangeEvent,
   KeyboardEvent,
@@ -21,6 +20,50 @@ interface AutocompleteProps {
   open: boolean;
 }
 
+const debouncedFetchBookSuggestions = debounce(
+  async (query, setSuggestionsCallback, setLoading, latestRequest) => {
+    if (!query) return;
+    const requestId = Date.now();
+    latestRequest.current = requestId;
+
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `/api/searchbooks?query=${encodeURIComponent(query)}`
+      );
+      const data = await response.json();
+
+      if (latestRequest.current !== requestId) {
+        return;
+      }
+
+      if (response.ok) {
+        const formattedSuggestions = data.docs.map(
+          (doc: {
+            key: string;
+            title: string;
+            author_name: string;
+            cover_i: string;
+          }) => ({
+            key: doc.key,
+            title: doc.title,
+            author_name: doc.author_name,
+            cover_i: doc.cover_i,
+          })
+        );
+        setSuggestionsCallback(formattedSuggestions);
+      } else {
+        throw new Error(data.message || "An error occurred");
+      }
+    } catch (error) {
+      console.error("Fetching book suggestions failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  },
+  300
+);
+
 export default function Autocomplete({ open }: AutocompleteProps) {
   const [suggestions, setSuggestions] = useState<OpenLibraryResponse[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -38,62 +81,20 @@ export default function Autocomplete({ open }: AutocompleteProps) {
     setToggleCoverSelection,
   } = useProvider();
 
-  const fetchBookSuggestions = useCallback(
-    debounce(async (query: string) => {
-      if (!query) return;
-      const requestId = Date.now();
-      latestRequest.current = requestId;
-      try {
-        setLoading(true);
-
-        const response = await fetch(
-          `/api/searchbooks?query=${encodeURIComponent(query)}`
-        );
-        const data = await response.json();
-
-        if (latestRequest.current !== requestId) {
-          return;
-        }
-
-        if (response.ok) {
-          const formattedSuggestions: OpenLibraryResponse[] = data.docs.map(
-            (doc: OpenLibraryResponse) => ({
-              key: doc.key,
-              title: doc.title,
-              author_name: doc.author_name,
-              cover_i: doc.cover_i,
-            })
-          );
-          setSuggestions(formattedSuggestions);
-          setActiveIndex(0);
-
-          formattedSuggestions.forEach((suggestion) => {
-            if (suggestion.cover_i) {
-              const img = new Image();
-              img.src = `https://covers.openlibrary.org/b/id/${suggestion.cover_i}-M.jpg`;
-            }
-          });
-        } else {
-          throw new Error(data.message || "An error occurred");
-        }
-      } catch (error) {
-        console.error("Fetching book suggestions failed:", error);
-      } finally {
-        setLoading(false);
-      }
-    }, 300),
-    [latestRequest]
-  );
-
   useEffect(() => {
     if (!hasSelected && inputValue) {
-      fetchBookSuggestions(inputValue);
+      debouncedFetchBookSuggestions(
+        inputValue,
+        setSuggestions,
+        setLoading,
+        latestRequest
+      );
     }
     if (inputValue.length === 0) {
       setSuggestions([]);
       setCover("");
     }
-  }, [inputValue, hasSelected, fetchBookSuggestions]);
+  }, [inputValue, hasSelected]);
 
   useEffect(() => {
     if (suggestionRefs.current[activeIndex]) {
@@ -143,8 +144,6 @@ export default function Autocomplete({ open }: AutocompleteProps) {
       );
     }
   }, [suggestions, activeIndex, setCover]);
-
-  useEffect(() => {}, [setCover, toggleCoverSelection]);
 
   const handleSuggestionClick = (index: number) => {
     setActiveIndex(index);
