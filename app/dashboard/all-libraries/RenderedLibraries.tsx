@@ -61,7 +61,7 @@ export default function RenderedLibraries({
               return (
                 <article className="h-full w-24 " key={`${book.url}-${index}`}>
                   <RadixPopover.Root
-                    onOpenChange={(e) => handleOpenChange(e, book.url)}
+                    onOpenChange={(e) => handleOpenChange(e, book.url || "")}
                   >
                     <RadixPopover.Anchor className="absolute" />
                     <RadixPopover.Trigger asChild>
