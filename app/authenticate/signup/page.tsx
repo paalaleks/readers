@@ -51,7 +51,7 @@ export default async function page({ searchParams }: { searchParams: any }) {
             <h1 className="text-3xl text-center mb-6 text-primary px-4 font-bold">
               Creat new user
             </h1>
-            <form className="animate-in flex flex-col w-full justify-center gap-2  relative">
+            <form className="animate-in flex flex-col w-full justify-center gap-4  relative">
               <Label className="" htmlFor="email">
                 Email
               </Label>

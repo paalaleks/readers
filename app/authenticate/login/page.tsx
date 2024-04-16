@@ -39,7 +39,7 @@ export default function page({ searchParams }: { searchParams: any }) {
           Login
         </h1>
 
-        <form className="animate-in flex flex-col w-full justify-center gap-2 ">
+        <form className="animate-in flex flex-col w-full justify-center gap-4 ">
           <Label className="" htmlFor="email">
             Email
           </Label>
