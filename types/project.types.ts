@@ -1,5 +1,13 @@
 import { RefObject } from "react";
 
+
+export interface BlogPostMetadata {
+  slug: string;
+  id: string;
+  date?: string; 
+  [key: string]: any; 
+}
+
 export type CodeSeriesItem = {
   code: string;
   codeSeries: string;

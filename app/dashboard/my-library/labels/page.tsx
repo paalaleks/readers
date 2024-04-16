@@ -1,10 +1,10 @@
 import React from "react";
-import Nav from "../../../Nav";
+import Nav from "../../../../components/Nav";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
 import { CodeSeriesItem, MyLibrary, Book } from "@/types/project.types";
 import ToggleBooksLabels from "../ToggleBooksLabels";
-import NavDashboardLinks from "@/app/NavDashboardLinks";
+import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 
 export default async function page() {
   const user = await userServer();
@@ -46,7 +46,7 @@ export default async function page() {
         styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
       />
 
-      <div className="flex flex-col items-center w-full">
+      <main className="flex flex-col items-center w-full">
         <div className="flex flex-col">
           {codeSeries && codeSeries.length > 0 ? (
             <div className="flex flex-col">
@@ -58,7 +58,7 @@ export default async function page() {
                       return (
                         <div
                           key={item.code}
-                          className={`w-[45.8px] h-[24px] min-[360px]:w-[73.32px] min-[360px]:h-[38.4px] min-[424px]:w-[91.5px] min-[424px]:h-[48px] sm:w-[138px] sm:h-[72px] outline outline-1 outline-muted transition-all duration-300 ease-in-out flex flex-col items-center justify-center px-2 `}
+                          className={`w-[45.8px] h-[24px] xxs:w-[73.32px] xxs:h-[38.4px] xs:w-[91.5px] xs:h-[48px] sm:w-[138px] sm:h-[72px] outline outline-1 outline-muted transition-all duration-300 ease-in-out flex flex-col items-center justify-center px-2 `}
                         >
                           {book ? (
                             book.status === "DELETED" ? (
@@ -98,7 +98,7 @@ export default async function page() {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 }

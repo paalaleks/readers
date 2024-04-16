@@ -1,7 +1,7 @@
-import HeroSection from "./SectionHero";
+import HeroSection from "./(homepage)/SectionHero";
 import Wrapper from "@/components/Wrapper";
-import HowItWorks from "./SectionHowItWorks";
-import SectionBlog from "./SectionBlog";
+import HowItWorks from "./(homepage)/SectionHowItWorks";
+import SectionBlog from "./(homepage)/SectionBlog";
 
 export default async function Index() {
   return (

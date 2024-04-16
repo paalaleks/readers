@@ -6,6 +6,7 @@ import SavedAlert from "@/components/SavedAlert";
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { revalidateSettingsPath } from "./(sa)/revalidatePage";
+import { usePathname } from "next/navigation";
 
 export default function Username({
   staticUsername,
@@ -20,6 +21,7 @@ export default function Username({
   const [lastUsername, setLastUsername] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
 
+  const pathname = usePathname();
   const supabase = createClient();
 
   const updateUsername = async () => {
@@ -59,7 +61,7 @@ export default function Username({
         name="username"
         className="text-base"
       />
-      {saved && <SavedAlert />}
+      {saved && pathname === "/settings" && <SavedAlert />}
     </>
   );
 }

@@ -1,10 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
-import Nav from "../../../Nav";
+import Nav from "../../../../components/Nav";
 import AddBooks from "./AddBooks";
 import RenderedBooks from "./RenderedBooks";
 import ToggleBooksLabels from "../ToggleBooksLabels";
-import NavDashboardLinks from "@/app/NavDashboardLinks";
+import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 
 export default async function page() {
   const supabase = createClient();
@@ -35,7 +35,7 @@ export default async function page() {
 
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col">
-          <div className="grid gap-x-2 gap-y-2 grid-cols-2 min-[346px]:grid-cols-3 min-[446px]:grid-cols-4 pb-8">
+          <div className="grid gap-x-2 gap-y-2 grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 pb-8">
             <RenderedBooks
               staticMyLibrary={staticMyLibrary}
               staticUserId={staticUserId}

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { ReactNode } from "react";
 import {
   Popover,
   PopoverContent,
@@ -14,8 +14,8 @@ export default function Nav({
   children2,
 }: {
   styles: string;
-  children1: React.ReactNode;
-  children2: React.ReactNode;
+  children1: ReactNode;
+  children2: ReactNode;
 }) {
   const [open, setIsOpen] = useState<boolean>(false);
   const handleOpenChange = (open: boolean) => {
@@ -23,7 +23,7 @@ export default function Nav({
   };
 
   return (
-    <nav className="flex flex-row justify-between items-center h-24 px-4 min-[400px]:px-8 relative z-10 max-w-5xl w-full mx-auto">
+    <nav className="flex flex-row justify-between items-center h-24 px-4 xs:px-8 relative z-10 max-w-5xl w-full mx-auto">
       <Popover onOpenChange={handleOpenChange}>
         <PopoverTrigger
           className={`flex flex-row justify-center items-center h-16 relative z-10 hover:text-primary/100 transition-colors ease-in-out ${

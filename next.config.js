@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   images: {
     remotePatterns: [
-      {
-        hostname: "covers.openlibrary.org",
-      },
-      {
-        hostname: "vsyzqqadqvjdaddmucyn.supabase.co",
-      },
+      { hostname: "covers.openlibrary.org" },
+      { hostname: "vsyzqqadqvjdaddmucyn.supabase.co" },
+      { hostname: "cdn.sanity.io" },
     ],
   },
   async redirects() {
@@ -21,6 +19,16 @@ const nextConfig = {
       {
         source: "/dashboard/my-library",
         destination: "/dashboard/my-library/books",
+        permanent: true,
+      },
+      {
+        source: "/legal",
+        destination: "/legal/privacy-policy",
+        permanent: true,
+      },
+      {
+        source: "/authenticate",
+        destination: "/authenticate/login",
         permanent: true,
       },
     ];

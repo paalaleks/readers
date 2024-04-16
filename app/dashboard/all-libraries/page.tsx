@@ -1,12 +1,11 @@
-import NavMyLibrary from "@/app/Nav";
+import NavMyLibrary from "@/components/Nav";
 import AutocompletePeople from "./AutocompletePeople";
 import FriendNotifications from "./FriendNotifications";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
 import RenderedLibraries from "./RenderedLibraries";
 import { FriendLibrary, MyLibrary } from "@/types/project.types";
-import NavDashboardLinks from "@/app/NavDashboardLinks";
-import Wrapper from "@/components/Wrapper";
+import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 
 export default async function page() {
   const supabase = createClient();
@@ -49,7 +48,7 @@ export default async function page() {
   }
 
   return (
-    <Wrapper>
+    <main className="max-w-4xl mx-auto">
       <NavMyLibrary
         children1={
           <>
@@ -60,11 +59,11 @@ export default async function page() {
         children2={<NavDashboardLinks />}
         styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
       />
-      <section className="px-4 min-[450px]:px-8 grid grid-cols-1 gap-4 bg-background pb-8">
+      <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8">
         <RenderedLibraries
           staticFriendLibraries={staticFriendLibraries as FriendLibrary[]}
         />
       </section>
-    </Wrapper>
+    </main>
   );
 }

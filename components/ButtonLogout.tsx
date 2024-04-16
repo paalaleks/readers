@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidateHomePath } from "@/app/(homepage)/reavalidateHomePath";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -8,6 +9,8 @@ export default function ButtonLogout() {
   const signOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
+    await revalidateHomePath();
+
     router.push("/");
   };
 

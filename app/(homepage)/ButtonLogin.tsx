@@ -1,7 +1,7 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../components/ui/button";
+import { Button } from "../../components/ui/button";
 
 export default async function ButtonLogin() {
   const supabase = createClient();
@@ -12,13 +12,13 @@ export default async function ButtonLogin() {
 
   return user ? (
     <Button asChild variant="ghost" className="font-bold text-base" size={"sm"}>
-      <Link href="/dashboard/my-library" className="">
+      <Link href="/dashboard/my-library">
         Go to app <ArrowRightIcon size={17} className="ml-1" />
       </Link>
     </Button>
   ) : (
     <Button asChild variant="ghost" className="font-bold text-base" size={"sm"}>
-      <Link href="/login" className="">
+      <Link href="/authenticate/login">
         Go to login <ArrowRightIcon size={17} className="ml-1" />
       </Link>
     </Button>

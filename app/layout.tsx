@@ -2,6 +2,13 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import React from "react";
 import Footer from "@/components/Footer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Book Okay - Home page",
+  description:
+    "Book Okay makes it easy to share libraries and keep track of your good books.",
+};
 
 export default function RootLayout({
   children,
@@ -10,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="text-foreground overflow-x-hidden relative min-h-screen pb-28">
+      <body className="antialiased text-foreground relative screenMinHeight pb-32">
         {children}
         <Footer />
       </body>

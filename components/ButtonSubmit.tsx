@@ -16,7 +16,6 @@ export function ButtonSubmit({ children, pendingText, ...props }: Props) {
 
   return (
     <Button
-      variant="secondary"
       {...props}
       type="submit"
       aria-disabled={pending}

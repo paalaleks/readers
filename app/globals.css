@@ -51,6 +51,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  .screenMinHeight {
+    min-height: 100dvh;
+    min-height: 100vh; 
+  }
 }
 
 
@@ -98,7 +102,7 @@
 }
 
 .nav-content-footer {
-  min-height: calc(100vh - 7rem); 
+  min-height: calc(100vh - 11rem); 
 }
 
 .inserted-text {
@@ -106,4 +110,8 @@
 }
 h1, h2, h4, h5, h6 {
   @apply font-bold tracking-tight;
+}
+
+.blog-h1 {
+  @apply text-3xl;
 }

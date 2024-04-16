@@ -13,18 +13,18 @@ export default function HowItWorks() {
           <h2 className="text-3xl sm:text-4xl font-bold text-primary/90 mb-4 relative z-20 whitespace-nowrap text-center">
             Register a book
           </h2>
-          <p className="text-2xl max-w-md max-w-[400px]:pb-0 pb-4 text-center text-primary/90">
+          <p className="text-2xl max-w-md max-w-[25rem]:pb-0 pb-4 text-center text-primary/90">
             Attach a label and register the book it&apos;s attached to inside
             the app.
           </p>
         </div>
         <Image
-          alt="Hand scaning book qr-label"
+          alt="Book and label attached to it"
           src={product}
           className=" z-10 animate-fade-in max-w-xl w-full mt-auto px-4"
         />
       </section>
-      <section className=" animate-fade-in min-h-[600px] flex relative -mt-12  max-w-5xl w-full mx-auto">
+      <section className=" animate-fade-in min-h-[37.5rem] flex relative -mt-12  max-w-5xl w-full mx-auto">
         <div className="bg-[url('/images/table.svg')] bg-cover w-full absolute h-full bg-no-repeat z-10 bg-left-bottom">
           <div className="right-0 sm:right-12 px-8 top-[60%] md:top-[40%] absolute text-center z-20">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 whitespace-nowrap">
@@ -39,18 +39,18 @@ export default function HowItWorks() {
           <Image
             alt="Hand scaning book qr-label"
             src={scanHand}
-            className="absolute z-10 left-0 top-20 animate-fade-in max-w-[425px]"
+            className="absolute z-10 left-0 top-20 animate-fade-in max-w-[26.5rem] w-full"
           />
         </div>
       </section>
 
-      <section className="animate-fade-in w-full text-center relative flex flex-col items-center justify-start ">
-        <div className=" flex flex-col justify-start items-center object-contain  text-primary bg-[url('/images/book.png')] h-[490px] bg-no-repeat bg-center bg-cover w-full max-w-5xl">
+      <section className="animate-fade-in w-full text-center relative flex flex-col items-center justify-start pt-4">
+        <div className=" flex flex-col justify-start items-center object-contain  text-primary bg-[url('/images/book.png')] h-[30.6rem] bg-no-repeat bg-center bg-cover w-full max-w-5xl">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 whitespace-nowrap text-center pt-8 sm:pt-12">
             Find a book
           </h2>
           <p className="text-2xl z-30 max-w-md px-8">
-            Most of our users are consered about not losing classic reads. So
+            Most of our users are conserned about not losing their classics, so
             your garanteed to find good books in your friends book collection.
           </p>
         </div>

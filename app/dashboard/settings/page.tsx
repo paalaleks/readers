@@ -1,14 +1,13 @@
 import { createClient } from "@/utils/supabase/server";
 import AvatarUpload from "@/components/AvatarUpload";
-import Nav from "@/app/Nav";
+import Nav from "@/components/Nav";
 import { getStyledMessages } from "./MutateMessages";
 import Username from "./Username";
 import Email from "./Email";
 import userServer from "@/hooks/userServer";
 import Password from "./Password";
 import DeleteAccount from "./DeleteAccount";
-import Wrapper from "@/components/Wrapper";
-import NavDashboardLinks from "@/app/NavDashboardLinks";
+import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 import MessagesComponent from "./Messages";
 
 export default async function page() {
@@ -31,14 +30,14 @@ export default async function page() {
   const styledMessages = await getStyledMessages();
 
   return (
-    <Wrapper>
+    <main className="mx-auto max-w-4xl w-full">
       <Nav
         children1={undefined}
         children2={<NavDashboardLinks />}
         styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
       />
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-8  mt-1 relative">
-        <legend className="bg-background px-2 text-primary/70 h-0 flex items-center">
+        <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">
           <h3>Profile</h3>
         </legend>
         <div className="mx-auto max-w-md w-full flex flex-col justify-center space-y-2 px-4">
@@ -55,7 +54,7 @@ export default async function page() {
       />
 
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-16 flex flex-col justify-center relative">
-        <legend className="bg-background px-2 text-primary/70 h-0 flex items-center">
+        <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">
           <h3>Account</h3>
         </legend>
         <p className="rounded-xl mx-auto max-w-md mt-4 mb-6">
@@ -67,6 +66,6 @@ export default async function page() {
         <Password />
         <DeleteAccount />
       </fieldset>
-    </Wrapper>
+    </main>
   );
 }
