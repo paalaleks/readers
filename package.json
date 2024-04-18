@@ -20,6 +20,8 @@
     "@sanity/client": "^6.15.14",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.37.2",
+    "@stripe/react-stripe-js": "^2.7.0",
+    "@stripe/stripe-js": "^3.3.0",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "@types/qrcode": "^1.5.5",

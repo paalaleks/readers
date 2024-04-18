@@ -1,10 +1,10 @@
 import Image from "next/image";
-import scanHand from "@/public/images/mobilescan.png";
+import scanHand from "@/public/images/mobilescan.svg";
 import product from "@/public/images/product.png";
 
 export default function HowItWorks() {
   return (
-    <div className="max-w-8xl mx-auto w-full bg-[#1C130E] h-full relative bottom-1">
+    <div className="max-w-8xl mx-auto w-full bg-[#271A13] h-full ">
       <section className="z-10 relative animate-fade-in min-h-60 flex items-center flex-col sm:flex-row pt-4 pb-6  max-w-4xl w-full mx-auto">
         <div className=" pl-8 pr-4 w-full flex items-center flex-col">
           <h3 className="text-lg sm:text-xl whitespace-nowrap text-primary pb-4">
@@ -39,7 +39,7 @@ export default function HowItWorks() {
           <Image
             alt="Hand scaning book qr-label"
             src={scanHand}
-            className="absolute z-10 left-0 top-20 animate-fade-in max-w-[26.5rem] w-full"
+            className="absolute z-10 -left-16 top-28 animate-fade-in max-w-[29rem] w-full"
           />
         </div>
       </section>

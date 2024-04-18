@@ -17,8 +17,8 @@ export default async function SectionBlog() {
     });
   };
   return (
-    <section className="max-w-8xl mx-auto w-full bg-[#1C130E] h-full pt-6">
-      <div className="z-10 relative animate-fade-in min-h-60 flex flex-col items-center py-12  max-w-4xl w-full mx-auto bg-card">
+    <section className="max-w-8xl mx-auto w-full bg-[#271A13] h-full pt-6 ">
+      <div className="z-10 relative animate-fade-in min-h-60 flex flex-col items-center py-12  max-w-4xl w-full mx-auto">
         <h3 className="text-lg sm:text-xl mb-12 whitespace-nowrap text-primary">
           Blog:
         </h3>

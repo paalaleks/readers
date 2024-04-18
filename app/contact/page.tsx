@@ -19,7 +19,7 @@ export default function page() {
       <nav className="flex flex-row justify-between items-center h-24 px-4 min-[25rem]:px-8 relative z-10 max-w-5xl w-full mx-auto">
         <NavBack />
       </nav>
-      <fieldset className="border rounded-xl border-accent mx-4 px-4 relative">
+      <fieldset className="border rounded-xl border-accent px-8 relative max-w-5xl mx-auto">
         <legend className="bg-background px-2 text-primary/70 h-0 flex items-center">
           <h3>Contact</h3>
         </legend>

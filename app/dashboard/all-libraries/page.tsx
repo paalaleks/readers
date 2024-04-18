@@ -48,7 +48,7 @@ export default async function page() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto">
+    <>
       <NavMyLibrary
         children1={
           <>
@@ -59,11 +59,11 @@ export default async function page() {
         children2={<NavDashboardLinks />}
         styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
       />
-      <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8">
+      <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8 max-w-5xl mx-auto">
         <RenderedLibraries
           staticFriendLibraries={staticFriendLibraries as FriendLibrary[]}
         />
       </section>
-    </main>
+    </>
   );
 }

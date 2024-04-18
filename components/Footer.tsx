@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#170e08] h-28 flex justify-center items-center leading-5 text-center text-xs absolute bottom-0 left-0 right-0 print:hidden text-muted-foreground">
+    <footer className="w-full bg-[#170e08] h-32 flex justify-center items-center leading-5 text-center text-xs absolute bottom-0 left-0 right-0 print:hidden text-muted-foreground">
       <div className="flex flex-wrap items-center justify-center px-4 space-x-2">
         <Link
           href="/privacy"
