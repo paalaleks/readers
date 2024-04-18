@@ -8,7 +8,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
   const [data, setData] = useState<{ password: string }>({ password: "" });
   const router = useRouter();
   const supabase = createClient();
