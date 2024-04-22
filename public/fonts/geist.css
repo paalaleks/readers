@@ -1,15 +1,15 @@
 @font-face {
     font-family: 'Geist';
-    src: url('http://localhost:3000/fonts/Geist-Regular.woff2') format('woff2'),
-            url('http://localhost:3000/fonts/Geist-Regular.otf') format('otf');
+    src: url('https://bookokay.app/fonts/Geist-Regular.woff2') format('woff2'),
+            url('https://bookokay.app/fonts/Geist-Regular.otf') format('otf');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Geist';
-    src: url('http://localhost:3000/fonts/Geist-Bold.woff2') format('woff2'),
-            url('http://localhost:3000/fonts/Geist-Bold.otf') format('otf');
+    src: url('https://bookokay.app/fonts/Geist-Bold.woff2') format('woff2'),
+            url('https://bookokay.app/fonts/Geist-Bold.otf') format('otf');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
