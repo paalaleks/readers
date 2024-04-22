@@ -22,11 +22,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/legal",
-        destination: "/legal/privacy-policy",
-        permanent: true,
-      },
-      {
         source: "/authenticate",
         destination: "/authenticate/login",
         permanent: true,
@@ -35,4 +30,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

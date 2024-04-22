@@ -8,7 +8,7 @@ export default function NavDashboardLinks() {
   const path = usePathname();
 
   return (
-    <div className="space-y-3 relative z-10">
+    <div className="space-y-2 relative z-10 text-lg xs:text-base">
       <Link
         href="/dashboard/all-libraries"
         className={`text-foreground hover:text-primary block ${

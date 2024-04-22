@@ -5,17 +5,10 @@ export default function Footer() {
     <footer className="w-full bg-[#170e08] h-32 flex justify-center items-center leading-5 text-center text-xs absolute bottom-0 left-0 right-0 print:hidden text-muted-foreground">
       <div className="flex flex-wrap items-center justify-center px-4 space-x-2">
         <Link
-          href="/privacy"
+          href="/legal"
           className="hover:underline underline-offset-2 hover:text-foreground"
         >
-          Privacy policy
-        </Link>
-        <span>|</span>
-        <Link
-          href="/privacy"
-          className="hover:underline underline-offset-2 hover:text-foreground"
-        >
-          Cookie policy
+          Legal information
         </Link>
         <span>|</span>
         <Link

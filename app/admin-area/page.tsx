@@ -11,7 +11,7 @@ export default async function page() {
   const userLoggedIn = session?.user;
 
   if (!userLoggedIn) {
-    redirect("admin-area/login");
+    redirect("authenticate/login");
   }
   if (userLoggedIn) {
     redirect(`admin-area/${userLoggedIn.email}`);

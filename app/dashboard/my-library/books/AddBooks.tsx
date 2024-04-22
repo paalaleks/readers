@@ -3,7 +3,6 @@
 import { ArrowLeft, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { useState, FormEvent } from "react";
 import Autocomplete from "./Autocomplete";
 import { createClient } from "@/utils/supabase/client";
@@ -14,17 +13,12 @@ import useUser from "@/hooks/useUser";
 import { revalidateBooksPath } from "../(sa)/revalidatePage";
 
 export default function AddBooks() {
-  const [toggleManually, setToggleManually] = useState<boolean>(false);
   const [toggleCoverSelection, setToggleCoverSelection] = useState<boolean>(
     false
   );
   const { open, setOpen, selectedBook, setSelectedBook } = useProvider();
   const supabase = createClient();
   const { userId } = useUser();
-
-  const handleToggleManually = () => {
-    setToggleManually(!toggleManually);
-  };
 
   async function fetchUserLibrary(userId: string) {
     const { data, error } = await supabase
@@ -130,7 +124,7 @@ export default function AddBooks() {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="max-w-md round">
+      <DialogContent className="max-w-md -translate-y-3/4 xs:-translate-y-1/2">
         {toggleCoverSelection && (
           <button
             onClick={() => setToggleCoverSelection(!toggleCoverSelection)}
@@ -144,40 +138,20 @@ export default function AddBooks() {
         )}
 
         <form className="grid mt-6 flex-1 gap-2" onSubmit={handleSubmit}>
-          <div className={`${toggleManually ? `hidden` : `visible`}`}>
-            <Autocomplete open={open} />
-          </div>
+          <Autocomplete open={open} />
 
-          <div
-            id="enter-manually"
-            className={`${toggleManually ? `visible` : `hidden`}`}
-          >
-            <div className="h-32 w-24 bg-muted rounded mx-auto mb-4 relative"></div>
-            <Input id="title" placeholder="Title" className=" mb-2" />
-            <Input id="author" placeholder="Author" className="" />
-          </div>
           {!toggleCoverSelection && (
             <Button
               type="submit"
-              variant="ghost"
+              variant="secondary"
               className="w-full bg-muted text-foreground mt-1"
             >
               Add book
             </Button>
           )}
         </form>
-
-        {!toggleCoverSelection && (
-          <button
-            className={`mb-1 text-sm text-muted-foreground`}
-            onClick={handleToggleManually}
-          >
-            {toggleManually
-              ? "Register with autocompletion?"
-              : "Register manually instead?"}
-          </button>
-        )}
       </DialogContent>
     </Dialog>
   );
 }
+

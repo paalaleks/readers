@@ -4,9 +4,6 @@
 
 @layer base {
   :root {
-    /* Name: custom color palette
-       Author: Ilias Ism
-       URL: https://gradient.page */
 
     /* CSS: .bg-gradient { background: var(--gradient) } */
     --gradient: #F3904F;
@@ -55,8 +52,34 @@
     min-height: 100dvh;
     min-height: 100vh; 
   }
+
   .nav-content-footer {
     min-height: calc(100vh - 11rem); 
+  }
+
+  .legal a {
+    @apply underline;
+  }
+  .legal p {
+    @apply my-2;
+  }
+
+  .legal h2 {
+    @apply  my-2;
+  }
+  .legal h3 {
+    @apply font-bold mt-3 mb-1;
+  }
+
+  .inserted-text {
+    @apply bg-accent w-max rounded px-1 select-none text-sm;
+  }
+  h1, h2, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  .blog-h1 {
+    @apply text-3xl;
   }
 }
 
@@ -106,13 +129,3 @@
 
 
 
-.inserted-text {
-  @apply bg-accent w-max rounded px-1 select-none text-sm;
-}
-h1, h2, h4, h5, h6 {
-  @apply font-bold tracking-tight;
-}
-
-.blog-h1 {
-  @apply text-3xl;
-}

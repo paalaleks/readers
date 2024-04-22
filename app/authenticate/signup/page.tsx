@@ -74,7 +74,21 @@ export default async function page({ searchParams }: { searchParams: any }) {
                 placeholder="••••••••"
                 required
               />
-
+              <p>
+                By signing up you agree to our{" "}
+                <Link href={""} className="underline">
+                  terms of service
+                </Link>
+                ,{" "}
+                <Link href={""} className="underline">
+                  privacy policy
+                </Link>{" "}
+                and{" "}
+                <Link href={""} className="underline">
+                  cookie policy
+                </Link>
+                .
+              </p>
               <ButtonSubmit
                 formAction={signUp}
                 className="mb-2"

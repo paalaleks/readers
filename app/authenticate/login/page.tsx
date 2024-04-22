@@ -35,9 +35,7 @@ export default function page({ searchParams }: { searchParams: any }) {
         <NavBack />
       </nav>
       <div className="px-8 w-full max-w-sm flex flex-col h-full justify-center flex-1 mb-32">
-        <h1 className="text-3xl text-center mb-6 text-primary px-4 font-bold">
-          Login
-        </h1>
+        <h1 className="text-3xl text-center mb-6 text-primary px-4">Login</h1>
 
         <form className="animate-in flex flex-col w-full justify-center gap-4 ">
           <Label className="" htmlFor="email">

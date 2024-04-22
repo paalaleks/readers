@@ -15,6 +15,7 @@ import NextImage from "next/image";
 import Loader from "@/components/Loader";
 import CoverSelection from "./CoverSelection";
 import { useProvider } from "../../Provider";
+import { X } from "lucide-react";
 
 interface AutocompleteProps {
   open: boolean;
@@ -81,7 +82,9 @@ export default function Autocomplete({ open }: AutocompleteProps) {
     setToggleCoverSelection,
   } = useProvider();
 
-  useEffect(() => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+
     if (!hasSelected && inputValue) {
       debouncedFetchBookSuggestions(
         inputValue,
@@ -90,11 +93,13 @@ export default function Autocomplete({ open }: AutocompleteProps) {
         latestRequest
       );
     }
+
     if (inputValue.length === 0) {
       setSuggestions([]);
       setCover("");
+      setHasSelected(false);
     }
-  }, [inputValue, hasSelected]);
+  };
 
   useEffect(() => {
     if (suggestionRefs.current[activeIndex]) {
@@ -201,11 +206,9 @@ export default function Autocomplete({ open }: AutocompleteProps) {
           </div>
           <div className="relative">
             <Input
+              className={`${hasSelected && "border-primary"}`}
               placeholder="Search for a book..."
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setInputValue(e.target.value);
-                setHasSelected(false);
-              }}
+              onChange={handleChange}
               value={inputValue}
               onKeyDown={handleKeyDown}
             />
@@ -214,7 +217,21 @@ export default function Autocomplete({ open }: AutocompleteProps) {
                 <Loader />
               </span>
             )}
+            {hasSelected && (
+              <span
+                className="absolute z-20 right-3 top-3 cursor-pointer"
+                onClick={() => {
+                  setInputValue("");
+                  setHasSelected(false);
+                  setCover("");
+                  setSelectedBook(null);
+                }}
+              >
+                <X size={16} />
+              </span>
+            )}
           </div>
+
           <ScrollArea
             className={` ${suggestions.length > 0 && "h-56 py-1 mt-1"}`}
           >
@@ -240,5 +257,4 @@ export default function Autocomplete({ open }: AutocompleteProps) {
     </>
   );
 }
-
 

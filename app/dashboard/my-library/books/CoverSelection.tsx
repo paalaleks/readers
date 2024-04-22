@@ -7,6 +7,7 @@ import { useProvider } from "../../Provider";
 
 export default function CoverSelection({ setCover }: { setCover: Function }) {
   const [covers, setCovers] = useState<string[]>([]);
+
   const {
     open,
     selectedBook,
@@ -28,7 +29,7 @@ export default function CoverSelection({ setCover }: { setCover: Function }) {
   const handleChangeCover = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newCover = `https://covers.openlibrary.org/b/id/${
-      (e.currentTarget.childNodes[0] as HTMLImageElement).alt
+      (e.currentTarget.childNodes[0] as HTMLElement).attributes[0].value
     }-M.jpg`;
     setCover(newCover);
     setSelectedBook((prevBook: Book | null) => {
@@ -53,7 +54,7 @@ export default function CoverSelection({ setCover }: { setCover: Function }) {
 
   return (
     <ScrollArea className="h-[430px]">
-      <div className="grid gap-x-2 gap-y-4 grid-cols-2 min-[346px]:grid-cols-3 min-[446px]:grid-cols-4">
+      <div className="grid gap-x-2 gap-y-4 grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4">
         {covers === undefined ? (
           <span className="whitespace-nowrap">No covers found</span>
         ) : covers.length ? (
@@ -61,8 +62,9 @@ export default function CoverSelection({ setCover }: { setCover: Function }) {
             return (
               <button key={index} onClick={handleChangeCover}>
                 <Image
+                  data-coverid={cover}
                   src={`https://covers.openlibrary.org/b/id/${cover}-M.jpg`}
-                  alt={"cover"}
+                  alt={"suggestion"}
                   className={`rounded h-32 w-24 object-cover relative z-10 group-hover:opacity-70 transition-opacity`}
                   width={128}
                   height={96}
