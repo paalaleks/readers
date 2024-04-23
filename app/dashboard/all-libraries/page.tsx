@@ -54,16 +54,23 @@ export default async function page() {
           <>
             <AutocompletePeople myLibrary={myLibrary} />
             <FriendNotifications initialFriends={friends || []} />
+            <div className="w-0 xs:w-[51px]"></div>
           </>
         }
         children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
+        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
       />
       <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8 max-w-5xl mx-auto">
         <RenderedLibraries
           staticFriendLibraries={staticFriendLibraries as FriendLibrary[]}
         />
       </section>
+
+      {staticFriendLibraries.length === 0 && (
+        <h2 className="text-xl flex flex-col items-center justify-center text-center nav-content-footer screenMinHeight relative bottom-8 -mb-20">
+          No friends added yet.
+        </h2>
+      )}
     </>
   );
 }

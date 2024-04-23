@@ -11,11 +11,11 @@ export default async function page({
   const user = await userServer();
 
   return (
-    <main className="nav-content-footer screenMinheight flex flex-col justify-center max-w-4xl">
+    <main className="nav-content-footer screenMinheight flex flex-col justify-center max-w-5xl mx-auto">
       <Nav
         children1={undefined}
         children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
+        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
       />
       <div className="flex flex-col justify-center items-center flex-1 ">
         <FormPairCode userId={user?.id ?? ""} />

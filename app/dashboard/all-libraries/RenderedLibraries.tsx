@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Book, FriendLibrary } from "@/types/project.types";
 import * as RadixPopover from "@radix-ui/react-popover";
@@ -36,22 +35,22 @@ export default function RenderedLibraries({
   };
 
   return staticFriendLibraries.map((lib) => (
-    <Card
+    <fieldset
       key={lib.user_id}
-      className="shadow-md border-accent bg-background rounded-xl"
+      className="shadow-md border-accent border bg-background rounded-xl"
     >
-      <div className="flex flex-row items-center p-6">
+      <legend className="text-center text-sm text-primary/70 flex ml-auto mr-4 items-center px-2 py-1 ">
         <Image
-          className="h-12 w-12 rounded-full object-cover bg-background "
+          className="h-8 w-8 rounded-full object-cover bg-background "
           alt="avatar"
           src={lib.avatar || "/images/avatar-circle.svg"}
           height={128}
           width={128}
         />
-        <h2 className="pl-2 text-primary/70">{lib.username || lib.email}</h2>
-      </div>
-      <CardContent className="flex flex-col items-center w-full mx-auto">
-        <div className="grid gap-x-2 gap-y-2 grid-cols-2 min-[425px]:grid-cols-3 min-[500px]:grid-cols-4 sm:grid-cols-5 pb-8 ">
+        <p className="pl-2 text-primary/70">{lib.username || lib.email}</p>
+      </legend>
+      <div className="flex flex-col items-center w-full mx-auto py-4">
+        <div className="grid gap-x-2 gap-y-2 grid-cols-2 min-[425px]:grid-cols-3 min-[500px]:grid-cols-4 sm:grid-cols-5 ">
           {lib.books && lib.books.length > 0 ? (
             lib.books.map((book, index) => {
               if (book.status === "DELETED")
@@ -108,10 +107,12 @@ export default function RenderedLibraries({
               );
             })
           ) : (
-            <p className="text-sm leading-4">No books available.</p>
+            <p className="text-sm leading-4 whitespace-nowrap px-8 pt-4 pb-8 col-span-full text-muted-foreground">
+              No books available yet.
+            </p>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </fieldset>
   ));
 }

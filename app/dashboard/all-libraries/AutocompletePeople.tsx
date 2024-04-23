@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent,
+  useCallback,
+  useRef,
+} from "react";
 import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
 import { UserCheck, UserPlus, X } from "lucide-react";
@@ -8,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { MyLibrary, UserSuggestion } from "@/types/project.types";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 export default function AutocompletePeople({
   myLibrary,
@@ -18,6 +25,7 @@ export default function AutocompletePeople({
   const [loading, setLoading] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<UserSuggestion[]>([]);
   const [friendReqSent, setFriendReqSent] = useState<string[]>([]);
+  const ref = useRef<HTMLUListElement>(null);
   const supabase = createClient();
 
   const fetchSuggestions = useCallback(
@@ -100,13 +108,20 @@ export default function AutocompletePeople({
     fetchSentFriendRequests();
   };
 
+  const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setSuggestions([]);
+    }
+  };
+  useOnClickOutside<HTMLUListElement>(ref, handleClickOutside);
+
   return (
     <div className="relative flex justify-center w-full items-center">
       <div className="flex items-center w-full max-w-[290px] mx-auto relative">
         <Input
           placeholder="Search for people"
           type="text"
-          className="mx-7 px-0 border-t-0 border-e-0 border-s-0 pl-2 rounded-none placeholder:text-foreground/50 focus-visible:ring-0 focus:border-b focus:gap-[1px] focus:border-primary"
+          className="ml-0 mr-7 xs:mx-7 px-0 border-t-0 border-e-0 border-s-0 pl-2 border-b-2 rounded-none placeholder:text-muted-foreground focus-visible:ring-0 focus:border-b-2 focus:gap-[1px] focus:border-primary"
           onChange={handleInputChange}
           value={inputValue}
         />
@@ -125,56 +140,59 @@ export default function AutocompletePeople({
             <Loader />
           </span>
         ) : null}
-      </div>
 
-      {suggestions.length > 0 && (
-        <ul className="absolute top-full mt-2 bg-background border-accent border shadow-2xl rounded-xl max-h-60 max-w-[250px] overflow-auto z-50 ">
-          {suggestions.map((suggestion, index) => {
-            const isFriendRequestSent = friendReqSent.includes(
-              suggestion.user_id
-            );
-            return (
-              <li
-                key={suggestion.user_id}
-                className={`py-3 px-2 leading-4 flex items-center flex-wrap`}
-              >
-                <div className="flex items-center">
-                  <Image
-                    src={suggestion.avatar || "/images/avatar-circle.svg"}
-                    height={100}
-                    width={100}
-                    alt="avatar"
-                    className="rounded-full object-cover bg-accent w-9 h-9 mr-2"
-                  />
-                  <p className="flex items-center flex-wrap text-sm">
-                    {suggestion.username}
-                    <span
-                      className={`${
-                        !suggestion.username ? "text-sm" : "text-xs"
-                      }`}
-                    >
-                      {suggestion.email}
-                    </span>
-                  </p>
-                </div>
-                <Button
-                  variant={"secondary"}
-                  onClick={() => handleSuggestionClick(index)}
-                  className="mt-2 w-full h-8 flex items-center"
-                  disabled={isFriendRequestSent}
+        {suggestions.length > 0 && (
+          <ul
+            ref={ref}
+            className="absolute top-full mt-2 bg-background border-accent border shadow-2xl rounded-xl max-h-60 w-full overflow-auto z-50 gap-y-4 flex flex-col py-4 px-3"
+          >
+            {suggestions.map((suggestion, index) => {
+              const isFriendRequestSent = friendReqSent.includes(
+                suggestion.user_id
+              );
+              return (
+                <li
+                  key={suggestion.user_id}
+                  className={`px-2 leading-4 flex items-center flex-wrap`}
                 >
-                  {isFriendRequestSent ? (
-                    <UserCheck size={14} className="mr-1" />
-                  ) : (
-                    <UserPlus size={14} className="mr-1" />
-                  )}
-                  {isFriendRequestSent ? "Request sent" : "Add friend"}
-                </Button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+                  <div className="flex items-center">
+                    <Image
+                      src={suggestion.avatar || "/images/avatar-circle.svg"}
+                      height={100}
+                      width={100}
+                      alt="avatar"
+                      className="rounded-full object-cover bg-accent w-9 h-9 mr-2"
+                    />
+                    <div className="flex flex-col items-start flex-wrap text-sm">
+                      <p>{suggestion.username}</p>
+                      <p
+                        className={`${
+                          !suggestion.username ? "text-sm" : "text-xs"
+                        }`}
+                      >
+                        {suggestion.email}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant={"secondary"}
+                    onClick={() => handleSuggestionClick(index)}
+                    className="mt-2 w-full h-8 flex items-center"
+                    disabled={isFriendRequestSent}
+                  >
+                    {isFriendRequestSent ? (
+                      <UserCheck size={14} className="mr-1" />
+                    ) : (
+                      <UserPlus size={14} className="mr-1" />
+                    )}
+                    {isFriendRequestSent ? "Request sent" : "Add friend"}
+                  </Button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

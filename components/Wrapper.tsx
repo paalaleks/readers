@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 
-export default function Wrapper({ children }: { children: React.ReactNode }) {
+export default function Wrapper({ children }: { children: ReactNode }) {
   return (
-    <main className="flex flex-col max-w-[1536px] w-full mx-auto relative bg-background screenMinHeight ">
+    <main className="flex flex-col w-full max-w-5xl mx-auto relative bg-background nav-content-footer screenMinheight ">
       {children}
     </main>
   );

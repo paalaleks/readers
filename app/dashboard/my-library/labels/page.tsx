@@ -43,13 +43,13 @@ export default async function page() {
           </>
         }
         children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
+        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
       />
 
       <main className="flex flex-col items-center w-full">
         <div className="flex flex-col">
           {codeSeries && codeSeries.length > 0 ? (
-            <div className="flex flex-col">
+            <>
               {articles.map((article, articleIndex) => (
                 <article key={articleIndex} className="flex flex-col">
                   <div className="w-full grid grid-cols-4 border border-muted p-4 gap-[1px]">
@@ -91,11 +91,11 @@ export default async function page() {
                   </span>
                 </article>
               ))}
-            </div>
+            </>
           ) : (
-            <div className="whitespace-nowrap  absolute left-10 ml-10">
+            <h2 className="text-xl flex flex-1 items-center justify-center screenMinHeight nav-content-footer -mb-32">
               You need to pair labels.
-            </div>
+            </h2>
           )}
         </div>
       </main>

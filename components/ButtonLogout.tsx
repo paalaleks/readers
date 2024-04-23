@@ -17,7 +17,7 @@ export default function ButtonLogout() {
   return (
     <form
       action={signOut}
-      className={`text-foreground hover:text-primary opacity-50 flex justify-start`}
+      className={`text-muted-foreground hover:text-primary opacity-50 flex justify-start`}
     >
       <button className="flex items-center">
         <span>Logout</span>

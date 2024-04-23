@@ -9,11 +9,11 @@ export default async function page() {
   const messages = {
     qrSubject:
       'Borrowing <span class="inserted-text">book title</span> via book okay 📚👍',
-    qrMessage:
+    qrBody:
       'Thanks for lending me "<span class="inserted-text">book title</span>" by <span class="inserted-text">book author</span>! Contact me when you need it back! 📚👋',
     libSubject:
       'Interest in borrowing: <span class="inserted-text">book title</span>',
-    libMessage:
+    libBody:
       'Hello <span class="inserted-text">owner name</span>, I am interested in borrowing "<span class="inserted-text">book title</span> by <span class="inserted-text">book author</span>. Could you let me know if it\'s available? Thank you!',
   };
 

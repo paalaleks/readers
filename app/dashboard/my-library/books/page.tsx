@@ -26,22 +26,24 @@ export default async function page() {
         children1={
           <>
             <ToggleBooksLabels />
-            {staticCodeSeries ? <AddBooks /> : <div className="w-[52px]"></div>}
+            {staticCodeSeries ? (
+              <AddBooks />
+            ) : (
+              <div className="w-0 xs:w-[52px]"></div>
+            )}
           </>
         }
         children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
+        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
       />
 
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col">
-          <div className="grid gap-x-2 gap-y-2 grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 pb-8">
-            <RenderedBooks
-              staticMyLibrary={staticMyLibrary}
-              staticUserId={staticUserId}
-              staticCodeSeries={staticCodeSeries}
-            />
-          </div>
+          <RenderedBooks
+            staticMyLibrary={staticMyLibrary}
+            staticUserId={staticUserId}
+            staticCodeSeries={staticCodeSeries}
+          />
         </div>
       </div>
     </>

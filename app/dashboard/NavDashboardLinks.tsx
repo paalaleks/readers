@@ -11,7 +11,7 @@ export default function NavDashboardLinks() {
     <div className="space-y-2 relative z-10 text-lg xs:text-base">
       <Link
         href="/dashboard/all-libraries"
-        className={`text-foreground hover:text-primary block ${
+        className={`text-muted-foreground hover:text-primary block ${
           path === "/dashboard/all-libraries"
             ? "opacity-100 text-primary"
             : "opacity-50"
@@ -21,7 +21,7 @@ export default function NavDashboardLinks() {
       </Link>
       <Link
         href="/dashboard/my-library/books"
-        className={`text-foreground hover:text-primary block ${
+        className={`text-muted-foreground hover:text-primary block ${
           path === "/dashboard/my-library/books" ||
           path === "/dashboard/my-library/labels"
             ? "opacity-100 text-primary"
@@ -32,7 +32,7 @@ export default function NavDashboardLinks() {
       </Link>
       <Link
         href="/dashboard/pair-labels"
-        className={`text-foreground hover:text-primary block ${
+        className={`text-muted-foreground hover:text-primary block ${
           path === "/dashboard/pair-labels"
             ? "opacity-100 text-primary"
             : "opacity-50"
@@ -42,7 +42,7 @@ export default function NavDashboardLinks() {
       </Link>
       <Link
         href="/dashboard/settings"
-        className={`text-foreground hover:text-primary block ${
+        className={`text-muted-foreground hover:text-primary block ${
           path === "/dashboard/settings"
             ? "opacity-100 text-primary"
             : "opacity-50"

@@ -66,8 +66,6 @@ export default function RenderedBooks({
     }
   }, [searchParams, replace, fetchLibrary]);
 
-
-  
   const findBookByCode = (code: string) => {
     return myLibrary?.books?.find((book) => book.url === code);
   };
@@ -260,12 +258,16 @@ export default function RenderedBooks({
           </article>
         );
       });
-    } else if (myLibrary?.books === null) {
-      return (
-        <div className="whitespace-nowrap ml-10">You need to pair labels.</div>
-      );
     }
   };
 
-  return <>{renderBooks()}</>;
+  return myLibrary?.books === null ? (
+    <h2 className="text-xl flex flex-1 items-center justify-center screenMinHeight nav-content-footer -mb-32">
+      You need to pair labels.
+    </h2>
+  ) : (
+    <div className="grid gap-x-2 gap-y-2 grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 pb-8">
+      {renderBooks()}
+    </div>
+  );
 }

@@ -30,11 +30,11 @@ export default async function page() {
   const styledMessages = await getStyledMessages();
 
   return (
-    <main className="mx-auto max-w-4xl w-full">
+    <main className="mx-auto max-w-5xl w-full">
       <Nav
         children1={undefined}
         children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-4 bg-background border border-accent rounded-xl py-6 mt-2"
+        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
       />
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-8  mt-1 relative">
         <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">

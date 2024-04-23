@@ -11,6 +11,7 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { FriendRequest } from "@/types/project.types";
 import { revalidateLibrariesPath } from "./sa/revalidatePage";
+import { Button } from "@/components/ui/button";
 
 export default function FriendNotifications({
   initialFriends,
@@ -18,8 +19,9 @@ export default function FriendNotifications({
   initialFriends: FriendRequest[];
 }) {
   const supabase = createClient();
-  const [friendRequests, setFriendRequests] =
-    useState<FriendRequest[]>(initialFriends);
+  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>(
+    initialFriends
+  );
 
   const acceptFriendRequest = async (senderId: string, receiverId: string) => {
     // Start by fetching both users' current friends lists
@@ -149,9 +151,9 @@ export default function FriendNotifications({
               return (
                 <div
                   key={request.sender_id}
-                  className="flex flex-col items-center py-4"
+                  className="flex gap-2 flex-col items-center "
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center gap-2">
                     <Image
                       src={request?.sender_avatar || "/images/placeholder.png"}
                       height={100}
@@ -170,23 +172,26 @@ export default function FriendNotifications({
                       </span>
                     </p>
                   </div>
-                  <div>
-                    <button
+                  <div className="-mb-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() =>
                         acceptFriendRequest(
                           request.sender_id,
                           request.receiver_id
                         )
                       }
-                      className="mr-4"
                     >
                       Accept
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => declineFriendRequest(request.sender_id)}
                     >
                       Decline
-                    </button>
+                    </Button>
                   </div>
                 </div>
               );

@@ -23,7 +23,7 @@ export default function Nav({
   };
 
   return (
-    <nav className="flex flex-row justify-center space-x-6 xs:justify-between items-center h-24 px-4 xs:px-8 relative z-10 max-w-5xl mx-auto w-full">
+    <nav className="flex flex-row justify-center space-x-6 xs:space-x-0 xs:justify-between items-center h-24 px-4 xs:px-8 relative z-10 max-w-5xl mx-auto w-full">
       <Popover onOpenChange={handleOpenChange}>
         <PopoverTrigger
           className={`flex flex-row justify-center items-center h-16 relative z-10 hover:text-primary/100 transition-colors ease-in-out ${

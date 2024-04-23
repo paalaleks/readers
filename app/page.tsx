@@ -1,14 +1,14 @@
 import HeroSection from "./(homepage)/SectionHero";
-import Wrapper from "@/components/Wrapper";
 import HowItWorks from "./(homepage)/SectionHowItWorks";
 import SectionBlog from "./(homepage)/SectionBlog";
+import HomeWrapper from "@/components/HomeWrapper";
 
 export default async function Index() {
   return (
-    <Wrapper>
+    <HomeWrapper>
       <HeroSection />
       <HowItWorks />
       <SectionBlog />
-    </Wrapper>
+    </HomeWrapper>
   );
 }
