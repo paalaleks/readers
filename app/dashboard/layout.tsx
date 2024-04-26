@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Provider } from "./Provider";
 import { ReactNode } from "react";
 import { Metadata } from "next";
+import Wrapper from "./Wrapper";
 
 export const metadata: Metadata = {
   title: "Book Okay - Dashboard",
@@ -20,5 +21,9 @@ export default async function layout({ children }: { children: ReactNode }) {
   if (!user) {
     return redirect("/authenticate/login");
   }
-  return <Provider>{children}</Provider>;
+  return (
+    <Provider>
+      <Wrapper>{children}</Wrapper>
+    </Provider>
+  );
 }

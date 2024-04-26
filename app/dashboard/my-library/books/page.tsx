@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
-import Nav from "../../Nav";
 import AddBooks from "./AddBooks";
 import RenderedBooks from "./RenderedBooks";
 import ToggleBooksLabels from "../ToggleBooksLabels";
+import Menu from "../../Menu";
 
 export default async function page() {
   const supabase = createClient();
@@ -21,25 +21,18 @@ export default async function page() {
 
   return (
     <>
-      <Nav>
-        <>
-          <ToggleBooksLabels />
-          {staticCodeSeries ? (
-            <AddBooks />
-          ) : (
-            <div className="w-0 xs:w-[52px]"></div>
-          )}
-        </>
-      </Nav>
+      <nav className="flex items-center justify-center h-24 relative z-10 max-w-5xl mx-auto w-full ">
+        <Menu />
+        <ToggleBooksLabels />
+        <AddBooks />
+      </nav>
 
-      <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col">
-          <RenderedBooks
-            staticMyLibrary={staticMyLibrary}
-            staticUserId={staticUserId}
-            staticCodeSeries={staticCodeSeries}
-          />
-        </div>
+      <div className="flex flex-col items-center w-full mt-1">
+        <RenderedBooks
+          staticMyLibrary={staticMyLibrary}
+          staticUserId={staticUserId}
+          staticCodeSeries={staticCodeSeries}
+        />
       </div>
     </>
   );

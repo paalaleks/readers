@@ -121,7 +121,7 @@ export default function AutocompletePeople({
         <Input
           placeholder="Search for people"
           type="text"
-          className="ml-0 mr-7 xs:mx-7 px-0 border-t-0 border-e-0 border-s-0 pl-2 border-b-2 rounded-none placeholder:text-muted-foreground focus-visible:ring-0 focus:border-b-2 focus:gap-[1px] focus:border-primary"
+          className="ml-0 mr-4 xs:mx-7 px-0 border-t-0 border-e-0 border-s-0 pl-2 border-b-2 rounded-none placeholder:text-muted-foreground focus-visible:ring-0 focus:border-b-2 focus:gap-[1px] focus:border-primary"
           onChange={handleInputChange}
           value={inputValue}
         />

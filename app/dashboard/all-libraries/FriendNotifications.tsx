@@ -136,7 +136,7 @@ export default function FriendNotifications({
       {friendRequests.length > 0 ? (
         <>
           <div className="w-16 flex items-center justify-center ">
-            <PopoverTrigger className="rounded-full w-8 h-8 flex items-center justify-center bg-primary/70 text-primary-foreground relative">
+            <PopoverTrigger className="rounded-full w-[51px] h-8 flex items-center justify-center bg-primary/70 text-primary-foreground relative">
               <Bell size={18} />
               <div className="rounded-full w-5 h-5 shadow flex items-center justify-center absolute -top-2 -right-2 text-primary border-2 border-primary/70 text-xs bg-background">
                 {friendRequests.length}

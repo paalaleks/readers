@@ -1,9 +1,9 @@
 import React from "react";
-import Nav from "../../Nav";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
 import { CodeSeriesItem, MyLibrary, Book } from "@/types/project.types";
 import ToggleBooksLabels from "../ToggleBooksLabels";
+import Menu from "../../Menu";
 
 export default async function page() {
   const user = await userServer();
@@ -34,12 +34,10 @@ export default async function page() {
 
   return (
     <>
-      <Nav>
-        <>
-          <ToggleBooksLabels />
-          <div className="w-[52px]" />
-        </>
-      </Nav>
+      <nav className="flex items-center justify-center h-24 relative z-10 max-w-5xl mx-auto w-full ">
+        <Menu />
+        <ToggleBooksLabels />
+      </nav>
 
       <main className="flex flex-col items-center w-full">
         <div className="flex flex-col">
@@ -97,5 +95,3 @@ export default async function page() {
     </>
   );
 }
-
-

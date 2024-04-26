@@ -1,10 +1,10 @@
-import NavMyLibrary from "@/app/dashboard/Nav";
 import AutocompletePeople from "./AutocompletePeople";
 import FriendNotifications from "./FriendNotifications";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
 import RenderedLibraries from "./RenderedLibraries";
 import { FriendLibrary, MyLibrary } from "@/types/project.types";
+import Menu from "../Menu";
 
 export default async function page() {
   const supabase = createClient();
@@ -48,12 +48,13 @@ export default async function page() {
 
   return (
     <>
-      <NavMyLibrary>
+      <nav className="flex items-center h-24 pl-24 xs:pl-0 relative z-10 max-w-5xl mx-auto w-full ">
+        <Menu />
         <AutocompletePeople myLibrary={myLibrary} />
         <FriendNotifications initialFriends={friends || []} />
-        <div className="w-0 xs:w-[51px]"></div>
-      </NavMyLibrary>
-      <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8 max-w-5xl mx-auto">
+      </nav>
+
+      <section className="px-4 flex flex-wrap flex-col gap-4 bg-background pb-8 ">
         <RenderedLibraries
           staticFriendLibraries={staticFriendLibraries as FriendLibrary[]}
         />

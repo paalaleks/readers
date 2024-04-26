@@ -115,7 +115,7 @@ export default function AddBooks() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <div className="flex justify-center w-[52px]">
+        <div className="flex justify-center absolute xs:right-8 right-4 top-8">
           <button
             className={`flex items-center justify-center text-sm transition-colors ease-in-out w-8 h-8 text-primary-foreground bg-primary/80 hover:bg-primary/100 rounded-full `}
           >

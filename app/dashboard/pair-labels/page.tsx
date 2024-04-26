@@ -1,6 +1,6 @@
-import Nav from "@/app/dashboard/Nav";
 import FormPairCode from "./FormPairCode";
 import userServer from "@/hooks/userServer";
+import Menu from "../Menu";
 
 export default async function page({
   searchParams,
@@ -10,10 +10,10 @@ export default async function page({
   const user = await userServer();
 
   return (
-    <main className="nav-content-footer screenMinheight flex flex-col justify-center max-w-5xl mx-auto">
-      <Nav>
-        <div className="w-[52px]"></div>
-      </Nav>
+    <main className="nav-content-footer screenMinheight flex flex-col justify-center ">
+      <nav className="flex items-center justify-center h-24 relative z-10 max-w-5xl mx-auto w-full ">
+        <Menu />
+      </nav>
       <div className="flex flex-col justify-center items-center flex-1 ">
         <FormPairCode userId={user?.id ?? ""} />
         {searchParams?.message && (

@@ -15,7 +15,7 @@ export default function HomeNav({ children }: { children: ReactNode }) {
   };
 
   return (
-    <nav className="flex flex-row justify-between items-center h-24 px-4 xs:px-8 lg:px-12 z-10 max-w-6xl mx-auto w-full absolute">
+    <nav className="flex flex-row justify-between items-center h-24 px-4 xs:px-8 lg:px-12 z-10 max-w-6xl mx-auto w-full absolute top-0 md:top-4">
       <Popover onOpenChange={handleOpenChange}>
         <PopoverTrigger
           className={`flex flex-row justify-center items-center h-16 relative z-10 hover:text-primary/100 transition-colors ease-in-out ${

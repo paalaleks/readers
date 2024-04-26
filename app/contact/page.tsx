@@ -14,12 +14,12 @@ import {
 
 export default function page() {
   return (
-    <main className="screenMinHeight nav-content-footer flex flex-col justify-center items-center max-w-5xl mx-auto">
+    <main className="screenMinHeight nav-content-footer flex flex-col justify-center items-center max-w-5xl mx-auto ">
       <nav className="flex flex-row justify-between items-center h-24 px-4 sm:px-8 relative z-10 max-w-5xl w-full mx-auto">
         <NavBack />
       </nav>
 
-      <form className="animate-in flex flex-col justify-center w-full max-w-md gap-4 flex-1 pb-8">
+      <form className="animate-in flex flex-col justify-center w-full max-w-md gap-4 flex-1 pb-8 px-4">
         <h1 className="text-3xl text-center mb-6 text-primary px-4 font-bold">
           Contact us
         </h1>

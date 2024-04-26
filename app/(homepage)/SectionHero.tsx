@@ -25,7 +25,7 @@ export default function HeroSection() {
             </Link>
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center mr-0 md:mr-8 pt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center mr-0 md:mr-8 pt-16">
           <Image
             src={classics}
             alt=""

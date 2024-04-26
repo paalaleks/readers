@@ -1,6 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
 import AvatarUpload from "@/components/AvatarUpload";
-import Nav from "@/app/dashboard/Nav";
 import { getStyledMessages } from "./MutateMessages";
 import Username from "./Username";
 import Email from "./Email";
@@ -8,6 +7,7 @@ import userServer from "@/hooks/userServer";
 import Password from "./Password";
 import DeleteAccount from "./DeleteAccount";
 import MessagesComponent from "./Messages";
+import Menu from "../Menu";
 
 export default async function page() {
   const user = await userServer();
@@ -30,9 +30,10 @@ export default async function page() {
 
   return (
     <main className="mx-auto max-w-5xl w-full">
-      <Nav>
-        <div className="w-[52px]"></div>
-      </Nav>
+      <nav className="flex items-center justify-center h-24 relative z-10 max-w-5xl mx-auto w-full ">
+        <Menu />
+      </nav>
+
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-8  mt-1 relative">
         <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">
           <h3>Profile</h3>
