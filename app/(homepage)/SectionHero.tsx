@@ -13,7 +13,7 @@ export default function HeroSection() {
         <ButtonLogin />
       </HomeNav>
       <header className="relative w-full bg-[url('/images/livingroom.png')] bg-cover bg-no-repeat bg-top min-h-[1400px] grid grid-cols-1 grid-rows-2">
-        <div className="max-w-4xl w-full mx-auto px-4 text-center mt-auto relative sm:bottom-24 bottom-0">
+        <div className="max-w-4xl w-full mx-auto px-4 text-center self-center pt-12">
           <h1 className="text-[3.4rem] leading-[3.3rem] xs:text-[4rem] xs:leading-[3.8rem] font-bold text-center text-pretty text-primary mb-4 animate-in max-w-4xl px-4">
             Book Okay makes it easy to share libraries and keep track of your
             good books.
@@ -31,11 +31,11 @@ export default function HeroSection() {
             alt=""
             className="max-w-md sm:max-w-xl md:max-w-2xl mx-auto"
           />
-          <div className="text-center text-primary pb-4 px-8 lg:px-0 pt-2 max-w-full md:max-w-lg">
-            <h1 className="text-[3.4rem] leading-[3.3rem] xs:text-[4rem] xs:leading-[3.8rem] font-bold text-pretty mb-4 animate-in ">
+          <div className="text-center text-primary pb-4 lg:px-0 pt-2 max-w-full md:max-w-lg">
+            <h1 className="text-[3.4rem] leading-[3.3rem] xs:text-[4rem] xs:leading-[3.8rem] font-bold text-pretty mb-4 animate-in px-2">
               For the book collector.
             </h1>
-            <p className="text-2xl ">
+            <p className="text-2xl  px-8 ">
               You want to share your best books with friends, but at the same
               time you want to get the book back again. Book Okay is the
               solution for you.
