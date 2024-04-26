@@ -17,19 +17,19 @@ export default async function SectionBlog() {
     });
   };
   return (
-    <section className="max-w-8xl mx-auto w-full bg-[#271A13] h-full pt-6 ">
-      <div className="z-10 relative animate-fade-in min-h-60 flex flex-col items-center py-12  max-w-4xl w-full mx-auto">
-        <h3 className="text-lg sm:text-xl mb-12 whitespace-nowrap text-primary">
+    <section className="max-w-8xl mx-auto w-full  h-full  px-4 sm:px-8">
+      <div className="z-10 relative animate-fade-in min-h-60 flex flex-col items-center pt-12 pb-16 max-w-6xl w-full mx-auto ">
+        <h2 className="text-lg sm:text-xl  text-center mx-auto text-primary/70 flex items-center  ">
           Blog:
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-8">
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-8 pt-16">
           {posts.slice(0, 4).map((post) => (
             <Link
               href={`posts/${post.slug.current}`}
               key={post._id}
               className="group"
             >
-              <Card className="bg-card p-4">
+              <Card className="bg-background border-none text-primary">
                 <div>
                   {post?.mainImage && (
                     <Image
@@ -56,7 +56,7 @@ export default async function SectionBlog() {
         <Button
           asChild
           variant="ghost"
-          className="font-bold text-base mt-12"
+          className="font-bold text-base mt-16"
           size={"sm"}
         >
           <Link href="/posts" className="">

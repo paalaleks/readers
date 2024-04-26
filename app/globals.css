@@ -127,5 +127,7 @@
   @apply bg-primary;
 }
 
-
-
+/* .trapes {
+  @apply h-64 bg-[#271a13];
+  clip-path: polygon(0 100%, 8% 0, 92% 0, 100% 100%);
+} */

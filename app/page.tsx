@@ -1,14 +1,17 @@
 import HeroSection from "./(homepage)/SectionHero";
-import HowItWorks from "./(homepage)/SectionHowItWorks";
+import SectionRegisterBook from "./(homepage)/SectionRegisterBook";
+import SectionBorrowBook from "./(homepage)/SectionBorrowBook";
+import SectionFindBook from "./(homepage)/SectionFindBook";
 import SectionBlog from "./(homepage)/SectionBlog";
-import HomeWrapper from "@/components/HomeWrapper";
 
 export default async function Index() {
   return (
-    <HomeWrapper>
+    <main className="flex flex-col w-full max-w-6xl mx-auto relative bg-background overflow-hidden">
       <HeroSection />
-      <HowItWorks />
+      <SectionRegisterBook />
+      <SectionBorrowBook />
+      <SectionFindBook />
       <SectionBlog />
-    </HomeWrapper>
+    </main>
   );
 }

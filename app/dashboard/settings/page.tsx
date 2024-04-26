@@ -1,13 +1,12 @@
 import { createClient } from "@/utils/supabase/server";
 import AvatarUpload from "@/components/AvatarUpload";
-import Nav from "@/components/Nav";
+import Nav from "@/app/dashboard/Nav";
 import { getStyledMessages } from "./MutateMessages";
 import Username from "./Username";
 import Email from "./Email";
 import userServer from "@/hooks/userServer";
 import Password from "./Password";
 import DeleteAccount from "./DeleteAccount";
-import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 import MessagesComponent from "./Messages";
 
 export default async function page() {
@@ -31,11 +30,7 @@ export default async function page() {
 
   return (
     <main className="mx-auto max-w-5xl w-full">
-      <Nav
-        children1={undefined}
-        children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
-      />
+      <Nav>{undefined}</Nav>
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-8  mt-1 relative">
         <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">
           <h3>Profile</h3>

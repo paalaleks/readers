@@ -35,13 +35,13 @@ export default function Footer() {
           </Link>
         </div>
         <div className="px-4 inline-flex space-x-3 items-center h-4">
-          <Link href="https://facebook.com/bookokay">
+          <Link href="https://facebook.com/Homelibrarygeek">
             <Facebook size={16} />
           </Link>
-          <Link href="https://instagram.com/bookokay">
+          <Link href="">
             <Instagram size={16} />
           </Link>
-          <Link href="https://instagram.com/bookokay">
+          <Link href="https://x.com/bookokaydotapp">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13.601"

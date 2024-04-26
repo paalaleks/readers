@@ -144,7 +144,7 @@ export default function AutocompletePeople({
         {suggestions.length > 0 && (
           <ul
             ref={ref}
-            className="absolute top-full mt-2 bg-background border-accent border shadow-2xl rounded-xl max-h-60 w-full overflow-auto z-50 gap-y-4 flex flex-col py-4 px-3"
+            className="absolute right-3 xs:right-0 top-full mt-2 bg-background ring-background ring-4 shadow-2xl rounded-xl max-h-60 w-full overflow-auto z-50 gap-y-4 flex flex-col items-center py-4 px-3 border border-accent"
           >
             {suggestions.map((suggestion, index) => {
               const isFriendRequestSent = friendReqSent.includes(

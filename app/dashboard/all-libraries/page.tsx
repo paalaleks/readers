@@ -1,11 +1,10 @@
-import NavMyLibrary from "@/components/Nav";
+import NavMyLibrary from "@/app/dashboard/Nav";
 import AutocompletePeople from "./AutocompletePeople";
 import FriendNotifications from "./FriendNotifications";
 import { createClient } from "@/utils/supabase/server";
 import userServer from "@/hooks/userServer";
 import RenderedLibraries from "./RenderedLibraries";
 import { FriendLibrary, MyLibrary } from "@/types/project.types";
-import NavDashboardLinks from "@/app/dashboard/NavDashboardLinks";
 
 export default async function page() {
   const supabase = createClient();
@@ -49,17 +48,11 @@ export default async function page() {
 
   return (
     <>
-      <NavMyLibrary
-        children1={
-          <>
-            <AutocompletePeople myLibrary={myLibrary} />
-            <FriendNotifications initialFriends={friends || []} />
-            <div className="w-0 xs:w-[51px]"></div>
-          </>
-        }
-        children2={<NavDashboardLinks />}
-        styles="w-40 pl-8 -ml-5 bg-background border border-accent rounded-xl py-6 mt-2"
-      />
+      <NavMyLibrary>
+        <AutocompletePeople myLibrary={myLibrary} />
+        <FriendNotifications initialFriends={friends || []} />
+        <div className="w-0 xs:w-[51px]"></div>
+      </NavMyLibrary>
       <section className="px-4 grid grid-cols-1 gap-4 bg-background pb-8 max-w-5xl mx-auto">
         <RenderedLibraries
           staticFriendLibraries={staticFriendLibraries as FriendLibrary[]}
