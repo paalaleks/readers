@@ -30,7 +30,9 @@ export default async function page() {
 
   return (
     <main className="mx-auto max-w-5xl w-full">
-      <Nav>{undefined}</Nav>
+      <Nav>
+        <div className="w-[52px]"></div>
+      </Nav>
       <fieldset className="border rounded-xl border-accent mx-4 px-4 pt-6 pb-8 mb-8  mt-1 relative">
         <legend className="bg-background px-2 text-primary/80 h-0 flex items-center">
           <h3>Profile</h3>

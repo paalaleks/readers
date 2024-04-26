@@ -13,7 +13,7 @@ export default function HeroSection() {
         <ButtonLogin />
       </HomeNav>
       <header className="relative w-full bg-[url('/images/livingroom.png')] bg-cover bg-no-repeat bg-top min-h-[1400px] grid grid-cols-1 grid-rows-2">
-        <div className="max-w-4xl w-full mx-auto px-4 text-center self-center pt-12">
+        <div className="max-w-4xl w-full mx-auto px-4 text-center self-center sm:pt-52 pt-24">
           <h1 className="text-[3.4rem] leading-[3.3rem] xs:text-[4rem] xs:leading-[3.8rem] font-bold text-center text-pretty text-primary mb-4 animate-in max-w-4xl px-4">
             Book Okay makes it easy to share libraries and keep track of your
             good books.
@@ -37,8 +37,8 @@ export default function HeroSection() {
             </h1>
             <p className="text-2xl  px-8 ">
               You want to share your best books with friends, but at the same
-              time you want to get the book back again. Book Okay is the
-              solution for you.
+              time you want to get the book back again. Book Okay helps you with
+              that.
             </p>
           </div>
         </div>

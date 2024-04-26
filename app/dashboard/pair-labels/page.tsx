@@ -11,7 +11,9 @@ export default async function page({
 
   return (
     <main className="nav-content-footer screenMinheight flex flex-col justify-center max-w-5xl mx-auto">
-      <Nav>{undefined}</Nav>
+      <Nav>
+        <div className="w-[52px]"></div>
+      </Nav>
       <div className="flex flex-col justify-center items-center flex-1 ">
         <FormPairCode userId={user?.id ?? ""} />
         {searchParams?.message && (
