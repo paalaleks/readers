@@ -25,7 +25,7 @@ export default function HeroSection() {
             </Link>
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center mr-0 md:mr-8 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center mr-0 md:mr-8 pt-12">
           <Image
             src={classics}
             alt=""
@@ -37,8 +37,8 @@ export default function HeroSection() {
             </h1>
             <p className="text-2xl  px-8 ">
               You want to share your best books with friends, but at the same
-              time you want to get the book back again. Book Okay helps you with
-              that.
+              time you want your books back again at some point... We will help
+              you with that.
             </p>
           </div>
         </div>
