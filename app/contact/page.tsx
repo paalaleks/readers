@@ -19,13 +19,23 @@ export default function page() {
         <NavBack />
       </nav>
 
-      <form className="animate-in flex flex-col justify-center w-full max-w-md gap-4 flex-1 pb-8 px-4">
+      <form
+        action="https://formsubmit.co/paalakaasa@gmail.com"
+        method="POST"
+        className="animate-in flex flex-col justify-center w-full max-w-md gap-4 flex-1 pb-8 px-4"
+      >
         <h1 className="text-3xl text-center mb-6 text-primary px-4 font-bold">
           Contact us
         </h1>
         <Label className="" htmlFor="email">
           Your Email
         </Label>
+        <input type="hidden" name="_captcha" value="false"></input>
+        <input
+          type="hidden"
+          name="_next"
+          value="https://bookokay.app/thank-you"
+        ></input>
         <Input
           type="email"
           id="email"
@@ -37,7 +47,7 @@ export default function page() {
         <Label className="" htmlFor="select">
           Select a topic
         </Label>
-        <Select required>
+        <Select required name="_subject">
           <SelectTrigger className="w-[180px]" id="select">
             <SelectValue placeholder="Select a topic" />
           </SelectTrigger>
@@ -65,7 +75,7 @@ export default function page() {
           required
           minLength={10}
         />
-        <Button>Send messages</Button>
+        <Button type="submit">Send messages</Button>
       </form>
     </main>
   );
