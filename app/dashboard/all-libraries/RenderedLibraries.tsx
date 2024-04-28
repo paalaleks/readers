@@ -85,9 +85,7 @@ export default function RenderedLibraries({
                     >
                       <span className="font-bold">{book?.title}</span>
                       <br />
-                      <span suppressContentEditableWarning contentEditable>
-                        {book?.author}
-                      </span>
+                      <span>{book?.author}</span>
                     </p>
                     <RadixPopover.Content className="absolute top-0 left-0 bg-background z-10  focus:outline-none">
                       <div className="w-24 h-32 rounded border border-accent flex justify-center flex-col items-center">
